@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { loginSchema } from "./validations";
-import UserModel from "./models/user.model";
-import bcrypt from "bcrypt";
+import { validateCredentials } from "./services/auth.service";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -19,30 +18,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        const user = await UserModel.findOne({
-          email: validated.data.email,
-        }).select("+password");
-
-        if (!user) {
-          return null;
-        }
-
-        const matches = await bcrypt.compare(
+        return validateCredentials(
+          validated.data.email,
           validated.data.password,
-          user.password,
         );
-
-        if (!matches) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: `${user.firstName} ${user.lastName}`,
-          role: user.role,
-        };
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+
+        token.role = user.role;
+      }
+
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id as string;
+
+      session.user.role = token.role as string;
+
+      return session;
+    },
+  },
 });
