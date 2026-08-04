@@ -2,15 +2,38 @@
 
 import { signIn } from "@/auth";
 import { register } from "@/services";
-import { registerSchema } from "@/validations";
+import { LoginInput, RegisterInput, registerSchema } from "@/validations";
+import z from "zod";
+import { AuthError } from "next-auth";
 
-export async function registerAction(input: unknown) {
+export async function loginAction(data: LoginInput) {
+  try {
+    await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirectTo: "/dashboard",
+    });
+
+    return { success: true, message: "Sign up successful." };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return {
+        success: false,
+        message: "Invalid email or password.",
+      };
+    }
+
+    throw error;
+  }
+}
+
+export async function registerAction(input: RegisterInput) {
   const validated = registerSchema.safeParse(input);
 
   if (!validated.success) {
     return {
       success: false,
-      errors: validated.error.flatten(),
+      errors: z.treeifyError(validated.error),
     };
   }
 

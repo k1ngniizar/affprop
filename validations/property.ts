@@ -1,9 +1,5 @@
 import { z } from "zod";
-import {
-  LISTING_TYPE_VALUES,
-  PROPERTY_STATUS_VALUES,
-  PROPERTY_TYPE_VALUES,
-} from "@/constants";
+import { LISTING_TYPE_VALUES, PROPERTY_TYPE_VALUES } from "@/constants";
 
 export const createPropertySchema = z.object({
   title: z

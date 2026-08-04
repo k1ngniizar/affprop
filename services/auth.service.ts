@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/db";
 import UserModel from "@/models/user.model";
 import { RegisterInput } from "@/validations";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export async function register(data: RegisterInput) {
   await connectDB();

@@ -12,6 +12,7 @@ import {
   updatePropertySchema,
   type UpdatePropertyInput,
 } from "@/validations";
+import z from "zod";
 
 export async function createPropertyAction(input: CreatePropertyInput) {
   const session = await auth();
@@ -25,7 +26,7 @@ export async function createPropertyAction(input: CreatePropertyInput) {
   if (!data.success) {
     return {
       success: false,
-      errors: data.error.flatten(),
+      errors: z.treeifyError(data.error),
     };
   }
 
