@@ -25,4 +25,8 @@ export default auth((req) => {
   return NextResponse.next();
 });
 
+// export const config = {
+//   matcher: ["/login", "/register", "/dashboard/:path*"],
+// };
+
 // export { auth as proxy } from "@/auth";
