@@ -7,10 +7,8 @@ import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { registerAction } from "@/actions/auth.actions";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
@@ -31,8 +29,7 @@ export default function RegisterForm() {
         return;
       }
 
-      toast.success("Sign up successful and redirecting to login page");
-      router.push("/login");
+      toast.success("Sign up successful.");
     } catch (error) {
       const isError =
         error instanceof Error ? error.message : "Something went wrong";

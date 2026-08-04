@@ -14,7 +14,7 @@ export async function loginAction(data: LoginInput) {
       redirectTo: "/dashboard",
     });
 
-    return { success: true, message: "Sign up successful." };
+    return { success: true, message: "Login successful." };
   } catch (error) {
     if (error instanceof AuthError) {
       return {
@@ -42,7 +42,7 @@ export async function registerAction(input: RegisterInput) {
   await signIn("credentials", {
     email: validated.data.email,
     password: validated.data.password,
-    redirect: false,
+    redirectTo: "/dashboard",
   });
 
   return {

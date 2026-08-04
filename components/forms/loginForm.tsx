@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -22,18 +21,17 @@ function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   function onSubmit(data: LoginInput) {
-    const router = useRouter();
     startTransition(async () => {
       const result = await loginAction(data);
 
       if (!result?.success) {
         toast.error(result.message);
+        console.log("Failure result:: ", result);
         return;
       }
 
       toast.success(result.message);
-      router.push("/dashboard");
-      router.refresh();
+      console.log("success result:: ", result);
     });
   }
   return (
