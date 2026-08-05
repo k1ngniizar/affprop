@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const authRoutes = ["/login", "/register"];
 
-export default auth((req) => {
+export const proxy = auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
   console.log("Middleware check for logged in user:: ", isLoggedIn);
@@ -25,8 +25,8 @@ export default auth((req) => {
   return NextResponse.next();
 });
 
-// export const config = {
-//   matcher: ["/login", "/register", "/dashboard/:path*"],
-// };
+export const config = {
+  matcher: ["/login", "/register", "/dashboard/:path*"],
+};
 
 // export { auth as proxy } from "@/auth";
