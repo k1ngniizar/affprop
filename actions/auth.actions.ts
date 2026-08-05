@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { register } from "@/services";
 import { LoginInput, RegisterInput, registerSchema } from "@/validations";
 import z from "zod";
@@ -44,6 +44,14 @@ export async function registerAction(input: RegisterInput) {
     password: validated.data.password,
     redirectTo: "/dashboard",
   });
+
+  return {
+    success: true,
+  };
+}
+
+export async function logoutAction() {
+  await signOut();
 
   return {
     success: true,
