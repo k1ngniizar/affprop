@@ -2,9 +2,13 @@
 import { CreatePropertyInput, createPropertySchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Input, Textarea } from "../ui/CreatePropertyUI";
+import { FileInput, Input, Textarea } from "../ui/CreatePropertyUI";
+import { ChangeEvent, useState } from "react";
+import { Files } from "lucide-react";
 
 function PropertyForm() {
+  const [image, setImage] = useState<File | undefined>(undefined);
+  const [err, setErr] = useState(false);
   const {
     register,
     handleSubmit,
@@ -13,183 +17,181 @@ function PropertyForm() {
     resolver: zodResolver(createPropertySchema),
   });
 
+  const handleImageChange = (
+    e: ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => {
+    const file = e.currentTarget.files;
+    if (!file) return;
+    console.log(file);
+    console.log(file?.[0]);
+    setImage(file?.[0]);
+  };
+
   async function onSubmit(data: CreatePropertyInput) {
-    console.log(data);
+    if (!image) {
+      setErr(true);
+      return;
+    }
+    setErr(false);
+    console.log({ ...data, image });
   }
 
   return (
-    <form className="grid grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        title="title"
-        control={register}
-        errors={errors.title}
-        errorMsg={errors.title?.message}
-      />
-      <Textarea
-        title="description"
-        control={register}
-        errors={errors.description}
-        errorMsg={errors.description?.message}
-      />
-      {/* <Input
-        inputType="number"
-        title="price"
-        control={register}
-        errors={errors.price}
-        errorMsg={errors.price?.message}
-      /> */}
-      <div>
-        <label htmlFor="price">Price:</label>
-        <input
-          type="number"
-          id="price"
-          {...register("price")}
-          placeholder="Enter property price"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.price && <p className="text-red-400">{errors.price.message}</p>}
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
+        <h2>General Information</h2>
+        <div className="space-y-3">
+          <Input
+            label="Title"
+            title="title"
+            control={register}
+            errors={errors.title}
+            errorMsg={errors.title?.message}
+          />
+          <Textarea
+            label="Description"
+            title="description"
+            control={register}
+            errors={errors.description}
+            errorMsg={errors.description?.message}
+          />
+          <Input
+            label="Price"
+            inputType="number"
+            title="price"
+            control={register}
+            errors={errors.price}
+            errorMsg={errors.price?.message}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="bedrooms">Bedrooms:</label>
-        <input
-          type="number"
-          id="bedrooms"
-          {...register("bedrooms")}
-          placeholder="Enter property bedrooms"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.bedrooms && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
+      <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
+        <h2>Specifications</h2>
+        <div className="flex gap-3">
+          <Input
+            label="Bedrooms"
+            inputType="number"
+            title="bedrooms"
+            control={register}
+            errors={errors.bedrooms}
+            errorMsg={errors.bedrooms?.message}
+          />
+          <Input
+            label="Bathrooms"
+            inputType="number"
+            title="bathrooms"
+            control={register}
+            errors={errors.bathrooms}
+            errorMsg={errors.bathrooms?.message}
+          />
+          <Input
+            label="Parking space"
+            inputType="number"
+            title="parking"
+            control={register}
+            errors={errors.parking}
+            errorMsg={errors.parking?.message}
+          />
+          <Input
+            label="Area"
+            inputType="number"
+            title="area"
+            control={register}
+            errors={errors.area}
+            errorMsg={errors.area?.message}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="bathrooms">Bathrooms:</label>
-        <input
-          type="number"
-          id="bathrooms"
-          {...register("bathrooms")}
-          placeholder="Enter property bathrooms"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.bathrooms && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
+      <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
+        <h2>Listing preference</h2>
+        <div className="flex gap-3">
+          <Input
+            label="Property type"
+            title="propertyType"
+            control={register}
+            errors={errors.propertyType}
+            errorMsg={errors.propertyType?.message}
+          />
+          <Input
+            label="Listing type"
+            title="listingType"
+            control={register}
+            errors={errors.listingType}
+            errorMsg={errors.listingType?.message}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="parking">parking:</label>
-        <input
-          type="number"
-          id="parking"
-          {...register("parking")}
-          placeholder="Enter property parking"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.parking && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
+      <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
+        <h2>Location</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="Property address"
+            title="address"
+            control={register}
+            errors={errors.address}
+            errorMsg={errors.address?.message}
+          />
+          <Input
+            label="Property city"
+            title="city"
+            control={register}
+            errors={errors.city}
+            errorMsg={errors.city?.message}
+          />
+          <Input
+            label="Property state"
+            title="state"
+            control={register}
+            errors={errors.state}
+            errorMsg={errors.state?.message}
+          />
+          <Input
+            label="Property country"
+            title="country"
+            control={register}
+            errors={errors.country}
+            errorMsg={errors.country?.message}
+          />
+          <Input
+            inputType="number"
+            label="Property latitude"
+            title="latitude"
+            control={register}
+            errors={errors.latitude}
+            errorMsg={errors.latitude?.message}
+          />
+          <Input
+            inputType="number"
+            label="Property longitude"
+            title="longitude"
+            control={register}
+            errors={errors.longitude}
+            errorMsg={errors.longitude?.message}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="area">Area:</label>
-        <input
-          type="number"
-          id="area"
-          {...register("area")}
-          placeholder="Enter property area"
-          className="w-full border rounded-lg p-3"
-        />
 
-        {errors.area && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
+      <div className="relative border border-zinc-700 bg-black rounded-sm p-4 space-y-4">
+        <h2>Image upload</h2>
+        <div className="border max-w-lg mx-auto">
+          <div>
+            <p>Image Preview</p>
+          </div>
+          <div>
+            <label className=" text-sm font-bold" htmlFor="image">
+              Add image
+            </label>
+            <input
+              id="image"
+              onChange={handleImageChange}
+              type="file"
+              className=" w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3"
+            />
+            {err && <p className="text-red-400">Please select an image.</p>}
+          </div>
+        </div>
       </div>
-      <div>
-        <label htmlFor="area">Area:</label>
-        <input
-          type="number"
-          id="area"
-          {...register("area")}
-          placeholder="Enter property area"
-          className="w-full border rounded-lg p-3"
-        />
 
-        {errors.area && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="propertyType">Property type:</label>
-        <input
-          id="propertyType"
-          {...register("propertyType")}
-          placeholder="Enter property propertyType"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.propertyType && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="listingType">Listing type:</label>
-        <input
-          id="listingType"
-          {...register("listingType")}
-          placeholder="Enter property listing type"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.listingType && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="location">Listing type:</label>
-        <input
-          id="location"
-          {...register("location")}
-          placeholder="Enter property listing type"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.location && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="images">Listing type:</label>
-        <input
-          id="images"
-          {...register("images")}
-          placeholder="Enter property listing type"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.images && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
       <button
         className="border w-full p-2 rounded-sm bg-white text-black hover:cursor-pointer hover:bg-zinc-300"
         disabled={isSubmitting}

@@ -19,7 +19,7 @@ export const createPropertySchema = z.object({
 
   listingType: z.enum(LISTING_TYPE_VALUES),
 
-  bedrooms: z.number().int().min(0),
+  bedrooms: z.int().min(0),
 
   bathrooms: z.number().int().min(0),
 
@@ -27,27 +27,17 @@ export const createPropertySchema = z.object({
 
   area: z.number().positive(),
 
-  location: z.object({
-    address: z.string().min(5),
+  address: z.string(),
 
-    city: z.string().min(2),
+  city: z.string(),
 
-    state: z.string().min(2),
+  state: z.string(),
 
-    country: z.string().min(2),
+  country: z.string(),
 
-    latitude: z.number(),
+  latitude: z.number(),
 
-    longitude: z.number(),
-  }),
-
-  images: z.array(
-    z.object({
-      publicId: z.string(),
-
-      url: z.url(),
-    }),
-  ),
+  longitude: z.number(),
 });
 
 export type CreatePropertyInput = z.infer<typeof createPropertySchema>;
