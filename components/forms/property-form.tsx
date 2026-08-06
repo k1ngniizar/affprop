@@ -2,6 +2,7 @@
 import { CreatePropertyInput, createPropertySchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Input, Textarea } from "../ui/CreatePropertyUI";
 
 function PropertyForm() {
   const {
@@ -12,40 +13,31 @@ function PropertyForm() {
     resolver: zodResolver(createPropertySchema),
   });
 
-  async function onSubmit(data: CreatePropertyInput) {}
+  async function onSubmit(data: CreatePropertyInput) {
+    console.log(data);
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          id="title"
-          {...register("title")}
-          placeholder="Enter property title"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.title && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <input
-          id="description"
-          {...register("description")}
-          placeholder="Enter property description"
-          className="w-full border rounded-lg p-3"
-        />
-
-        {errors.description && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
-      </div>
+    <form className="grid grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        title="title"
+        control={register}
+        errors={errors.title}
+        errorMsg={errors.title?.message}
+      />
+      <Textarea
+        title="description"
+        control={register}
+        errors={errors.description}
+        errorMsg={errors.description?.message}
+      />
+      {/* <Input
+        inputType="number"
+        title="price"
+        control={register}
+        errors={errors.price}
+        errorMsg={errors.price?.message}
+      /> */}
       <div>
         <label htmlFor="price">Price:</label>
         <input
@@ -56,11 +48,7 @@ function PropertyForm() {
           className="w-full border rounded-lg p-3"
         />
 
-        {errors.price && (
-          <p className="text-red-400">
-            First name must be longer than two letters
-          </p>
-        )}
+        {errors.price && <p className="text-red-400">{errors.price.message}</p>}
       </div>
       <div>
         <label htmlFor="bedrooms">Bedrooms:</label>
@@ -126,6 +114,88 @@ function PropertyForm() {
           </p>
         )}
       </div>
+      <div>
+        <label htmlFor="area">Area:</label>
+        <input
+          type="number"
+          id="area"
+          {...register("area")}
+          placeholder="Enter property area"
+          className="w-full border rounded-lg p-3"
+        />
+
+        {errors.area && (
+          <p className="text-red-400">
+            First name must be longer than two letters
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="propertyType">Property type:</label>
+        <input
+          id="propertyType"
+          {...register("propertyType")}
+          placeholder="Enter property propertyType"
+          className="w-full border rounded-lg p-3"
+        />
+
+        {errors.propertyType && (
+          <p className="text-red-400">
+            First name must be longer than two letters
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="listingType">Listing type:</label>
+        <input
+          id="listingType"
+          {...register("listingType")}
+          placeholder="Enter property listing type"
+          className="w-full border rounded-lg p-3"
+        />
+
+        {errors.listingType && (
+          <p className="text-red-400">
+            First name must be longer than two letters
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="location">Listing type:</label>
+        <input
+          id="location"
+          {...register("location")}
+          placeholder="Enter property listing type"
+          className="w-full border rounded-lg p-3"
+        />
+
+        {errors.location && (
+          <p className="text-red-400">
+            First name must be longer than two letters
+          </p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="images">Listing type:</label>
+        <input
+          id="images"
+          {...register("images")}
+          placeholder="Enter property listing type"
+          className="w-full border rounded-lg p-3"
+        />
+
+        {errors.images && (
+          <p className="text-red-400">
+            First name must be longer than two letters
+          </p>
+        )}
+      </div>
+      <button
+        className="border w-full p-2 rounded-sm bg-white text-black hover:cursor-pointer hover:bg-zinc-300"
+        disabled={isSubmitting}
+      >
+        Create property
+      </button>
     </form>
   );
 }
