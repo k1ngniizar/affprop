@@ -14,7 +14,10 @@ import {
 } from "@/validations";
 import z from "zod";
 
-export async function createPropertyAction(input: CreatePropertyInput) {
+export async function createPropertyAction(
+  input: CreatePropertyInput,
+  image: { publicId: string; url: string },
+) {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -30,7 +33,10 @@ export async function createPropertyAction(input: CreatePropertyInput) {
     };
   }
 
-  await createProperty(data.data, session.user.id);
+  const result = await createProperty(data.data, session.user.id, image);
+  console.log(result);
+
+  // console.log("Property log for debugging:: ", property);
 
   revalidatePath("/dashboard/properties");
   revalidatePath("/properties");
@@ -53,8 +59,6 @@ export async function updatePropertyAction(
   revalidatePath("/dashboard/properties");
   revalidatePath(`/properties/${propertyId}`);
 }
-
-("use server");
 
 export async function deletePropertyAction(propertyId: string) {
   const session = await auth();

@@ -1,4 +1,4 @@
-const uploadImage = async (file: File) => {
+export const uploadImage = async (file: File) => {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME as string; // Must be unsigned!
 
@@ -16,9 +16,16 @@ const uploadImage = async (file: File) => {
     );
 
     const data = await response.json();
-    console.log("Uploaded Secure URL:", data.secure_url);
-    return data;
+    console.log("Uploaded Secure URL:", data);
+    return {
+      publicId: data.public_id,
+      url: data.secure_url,
+    };
   } catch (error) {
     console.error("Upload failed:", error);
+    return {
+      error: true,
+      message: "Failed to upload image.",
+    };
   }
 };

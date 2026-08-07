@@ -23,18 +23,35 @@ export async function getPropertyById(id: string) {
 export async function createProperty(
   data: CreatePropertyInput,
   ownerId: string,
+  image: {
+    publicId: string | null | undefined;
+    url: string | null | undefined;
+  },
 ) {
-  const matchModelData: PropertySchema<Partial> = {
+  const matchModelData: Partial<PropertySchema> = {
     title: data.title,
     description: data.description,
     price: data.price,
     propertyType: data.propertyType,
     listingType: data.listingType,
+    bedrooms: data.bedrooms,
+    bathrooms: data.bathrooms,
+    parking: data.parking,
+    area: data.area,
+    images: image,
+    location: {
+      address: data.address,
+      city: data.city,
+      country: data.country,
+      state: data.state,
+      latitude: data.latitude,
+      longitude: data.longitude,
+    },
   };
   await connectDB();
 
   return PropertyModel.create({
-    ...data,
+    ...matchModelData,
     owner: ownerId,
   });
 }
@@ -85,3 +102,28 @@ export async function deleteProperty(propertyId: string, userId: string) {
     message: "Property deleted successfully.",
   };
 }
+
+// (property) images?: {
+//  [n: number]: Types.Subdocument<ObjectId, unknown, {
+//  publicId?: string | null | undefined;
+//  url?: string | null | undefined;
+//  }, {}, {}> & {
+//  publicId?: string | null | undefined;
+//  url?: string | null | undefined;
+//  };
+//  isMongooseDocumentArray: true;
+//  create(obj: any): Types.Subdocument<ObjectId, unknown, {
+//  publicId?: string | null | undefined;
+//  url?: string | null | undefined;
+//  }, {}, {}> & {
+//  publicId?: string | null | undefined;
+//  url?: string | null | undefined;
+//  };
+//  id(id: Types.ObjectId | string | number | Types.Buffer): (Types.Subdocument<...> & {
+//  ...;
+//  }) | null;
+//  ... 49 more ...;
+//  readonly [Symbol.unscopables]: {
+//  ...;
+//  };
+// } | undefined

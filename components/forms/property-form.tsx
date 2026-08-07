@@ -3,13 +3,22 @@ import { CreatePropertyInput, createPropertySchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input, SelectInput, Textarea } from "../ui/CreatePropertyUI";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { LISTING_TYPE_VALUES, PROPERTY_TYPE_VALUES } from "@/constants";
+import { uploadImage } from "@/lib/cloudinary";
+import toast from "react-hot-toast";
+import { createPropertyAction } from "@/actions/property.actions";
 
 function PropertyForm() {
   const [image, setImage] = useState<File | undefined>(undefined);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [err, setErr] = useState(false);
+  useEffect(() => {
+    if (!image) return;
+    const url = URL.createObjectURL(image);
+    setImagePreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [image]);
   const {
     register,
     handleSubmit,
@@ -24,9 +33,7 @@ function PropertyForm() {
     const file = e.currentTarget.files;
     if (!file) return;
     const imageFile = file?.[0];
-    const url = URL.createObjectURL(imageFile);
     setImage(imageFile);
-    setImagePreview(url);
   };
 
   async function onSubmit(data: CreatePropertyInput) {
@@ -36,6 +43,24 @@ function PropertyForm() {
     }
     setErr(false);
     console.log({ ...data, image });
+    try {
+      const uploadedImageData = await uploadImage(image);
+      if (uploadedImageData.error) {
+        toast.error(uploadedImageData.message);
+        return;
+      }
+
+      const uploadedImage = {
+        publicId: uploadedImageData.publicId,
+        url: uploadedImageData.url,
+      };
+      console.log("Uploaded image:: ", uploadedImage);
+
+      await createPropertyAction(data, uploadedImage);
+      toast.success("Property listing success.");
+    } catch (error) {
+      console.log("error in property-form:: ", error);
+    }
   }
 
   return (
@@ -203,7 +228,7 @@ function PropertyForm() {
         className="border w-full p-2 rounded-sm bg-white text-black hover:cursor-pointer hover:bg-zinc-300"
         disabled={isSubmitting}
       >
-        Create property
+        {isSubmitting ? "Creating..." : "Create property"}
       </button>
     </form>
   );

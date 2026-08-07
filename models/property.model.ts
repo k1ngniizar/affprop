@@ -89,7 +89,7 @@ const propertySchema = new Schema(
 
     area: Number,
 
-    images: [imageSchema],
+    images: imageSchema,
 
     location: locationSchema,
 
