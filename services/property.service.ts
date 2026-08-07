@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db";
-import PropertyModel from "@/models/property.model";
+import PropertyModel, { PropertySchema } from "@/models/property.model";
 import type { CreatePropertyInput, UpdatePropertyInput } from "@/validations";
 
 export async function getProperties() {
@@ -24,6 +24,13 @@ export async function createProperty(
   data: CreatePropertyInput,
   ownerId: string,
 ) {
+  const matchModelData: PropertySchema<Partial> = {
+    title: data.title,
+    description: data.description,
+    price: data.price,
+    propertyType: data.propertyType,
+    listingType: data.listingType,
+  };
   await connectDB();
 
   return PropertyModel.create({

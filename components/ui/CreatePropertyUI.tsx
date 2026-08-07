@@ -10,6 +10,7 @@ interface CreatePropertyUiProps {
   errors: FieldError | undefined;
   errorMsg: string | undefined;
   imageFile?: File | undefined;
+  selectDropdn?: string[];
 }
 
 export function Textarea({
@@ -28,7 +29,7 @@ export function Textarea({
         id={title}
         {...control(title)}
         placeholder="Enter property description"
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3"
+        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
       />
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
@@ -57,7 +58,7 @@ export function Input({
           valueAsNumber: isInputTypeNumber,
         })}
         placeholder={`Enter property ${title}`}
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3"
+        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
       />
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
@@ -86,8 +87,54 @@ export function FileInput({
           setValueAs: (value = imageFile) => value,
         })}
         placeholder={`Enter property ${title}`}
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3"
+        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
       />
+
+      {errors && <p className="text-red-400">{errorMsg}</p>}
+    </div>
+  );
+}
+
+export function SelectInput({
+  title,
+  control,
+  errors,
+  errorMsg,
+  label,
+  selectDropdn,
+}: CreatePropertyUiProps) {
+  return (
+    <div className="flex flex-col flex-1">
+      <label className=" text-sm font-bold" htmlFor={title}>
+        {label}
+      </label>
+      {selectDropdn && (
+        <select
+          defaultValue={""}
+          className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
+          {...control(title)}
+          id={title}
+        >
+          <option
+            className="text-foreground bg-background hover:bg-accent"
+            value=""
+            disabled
+          >
+            Select {label}
+          </option>
+          {selectDropdn.map((items, idx) => {
+            return (
+              <option
+                className="text-foreground bg-background hover:bg-accent"
+                key={idx}
+                value={items}
+              >
+                {items}
+              </option>
+            );
+          })}
+        </select>
+      )}
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
     </div>

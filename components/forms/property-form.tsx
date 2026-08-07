@@ -2,12 +2,13 @@
 import { CreatePropertyInput, createPropertySchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FileInput, Input, Textarea } from "../ui/CreatePropertyUI";
+import { Input, SelectInput, Textarea } from "../ui/CreatePropertyUI";
 import { ChangeEvent, useState } from "react";
-import { Files } from "lucide-react";
+import { LISTING_TYPE_VALUES, PROPERTY_TYPE_VALUES } from "@/constants";
 
 function PropertyForm() {
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [err, setErr] = useState(false);
   const {
     register,
@@ -22,9 +23,10 @@ function PropertyForm() {
   ) => {
     const file = e.currentTarget.files;
     if (!file) return;
-    console.log(file);
-    console.log(file?.[0]);
-    setImage(file?.[0]);
+    const imageFile = file?.[0];
+    const url = URL.createObjectURL(imageFile);
+    setImage(imageFile);
+    setImagePreview(url);
   };
 
   async function onSubmit(data: CreatePropertyInput) {
@@ -39,7 +41,7 @@ function PropertyForm() {
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
-        <h2>General Information</h2>
+        <h2 className="text-2xl font-bold">General Information</h2>
         <div className="space-y-3">
           <Input
             label="Title"
@@ -66,7 +68,7 @@ function PropertyForm() {
         </div>
       </div>
       <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
-        <h2>Specifications</h2>
+        <h2 className="text-2xl font-bold">Specifications</h2>
         <div className="flex gap-3">
           <Input
             label="Bedrooms"
@@ -103,16 +105,18 @@ function PropertyForm() {
         </div>
       </div>
       <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
-        <h2>Listing preference</h2>
+        <h2 className="text-2xl font-bold">Listing preference</h2>
         <div className="flex gap-3">
-          <Input
+          <SelectInput
+            selectDropdn={PROPERTY_TYPE_VALUES}
             label="Property type"
             title="propertyType"
             control={register}
             errors={errors.propertyType}
             errorMsg={errors.propertyType?.message}
           />
-          <Input
+          <SelectInput
+            selectDropdn={LISTING_TYPE_VALUES}
             label="Listing type"
             title="listingType"
             control={register}
@@ -122,7 +126,7 @@ function PropertyForm() {
         </div>
       </div>
       <div className="border border-zinc-700 rounded-sm p-4 bg-black space-y-4">
-        <h2>Location</h2>
+        <h2 className="text-2xl font-bold">Location</h2>
         <div className="grid grid-cols-2 gap-4">
           <Input
             label="Property address"
@@ -172,20 +176,23 @@ function PropertyForm() {
       </div>
 
       <div className="relative border border-zinc-700 bg-black rounded-sm p-4 space-y-4">
-        <h2>Image upload</h2>
-        <div className="border max-w-lg mx-auto">
-          <div>
-            <p>Image Preview</p>
+        <h2 className="text-2xl font-bold">Image upload</h2>
+        <div className="border border-zinc-700 max-w-lg mx-auto flex-col flex h-100 rounded-sm overflow-hidden">
+          <div className="flex-1 overflow-hidden flex items-center justify-center">
+            {!imagePreview && <p>Select an image to Preview</p>}
+            {imagePreview && (
+              <img src={imagePreview} className="w-full h-full" />
+            )}
           </div>
-          <div>
-            <label className=" text-sm font-bold" htmlFor="image">
+          <div className="p-4">
+            <label className=" font-bold" htmlFor="image">
               Add image
             </label>
             <input
               id="image"
               onChange={handleImageChange}
               type="file"
-              className=" w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3"
+              className=" w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3 object-cover"
             />
             {err && <p className="text-red-400">Please select an image.</p>}
           </div>
