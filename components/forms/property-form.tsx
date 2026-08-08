@@ -8,8 +8,10 @@ import { LISTING_TYPE_VALUES, PROPERTY_TYPE_VALUES } from "@/constants";
 import { uploadImage } from "@/lib/cloudinary";
 import toast from "react-hot-toast";
 import { createPropertyAction } from "@/actions/property.actions";
+import { useRouter } from "next/navigation";
 
 function PropertyForm() {
+  const router = useRouter();
   const [image, setImage] = useState<File | undefined>(undefined);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [err, setErr] = useState(false);
@@ -58,6 +60,7 @@ function PropertyForm() {
 
       await createPropertyAction(data, uploadedImage);
       toast.success("Property listing success.");
+      router.push("/dashboard/properties");
     } catch (error) {
       console.log("error in property-form:: ", error);
     }

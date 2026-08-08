@@ -1,7 +1,17 @@
+import PropertyGrid from "@/components/PropertyGrid";
+import { getProperties } from "@/services";
 import React from "react";
 
-function DashboardPropertyPage() {
-  return <div>DashboardPropertyPage</div>;
+async function DashboardPropertyPage() {
+  const property = await getProperties();
+  console.log(property[0]);
+  return (
+    <div>
+      DashboardPropertyPage
+      <p>{property[0].id}</p>
+      <PropertyGrid />
+    </div>
+  );
 }
 
 export default DashboardPropertyPage;

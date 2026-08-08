@@ -5,7 +5,7 @@ import type { CreatePropertyInput, UpdatePropertyInput } from "@/validations";
 export async function getProperties() {
   await connectDB();
 
-  return PropertyModel.find().lean();
+  return PropertyModel.find();
 }
 
 export async function getPropertyById(id: string) {
