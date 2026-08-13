@@ -2,9 +2,11 @@ import { PropertyCard } from "./PropertyCard";
 
 function PropertyGrid({ property }) {
   return (
-    <div>
-      <h1 className="text-2xl bg-green-600">PropertyGrid</h1>
-      <div className="flex flex-wrap gap-4 overflow-hidden justify-between  p-2">
+    <div className="relative">
+      <h1 className="text-2xl bg-zinc-700/70 backdrop-blur-xs py-2 sticky top-0 px-4 my-4 z-10">
+        Properties You Listed
+      </h1>
+      <div className="grid grid-cols-2  gap-4 overflow-hidden">
         {property.map((item) => {
           return <PropertyCard key={item.id} item={item} />;
         })}

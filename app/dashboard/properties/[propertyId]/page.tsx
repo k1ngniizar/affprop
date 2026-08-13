@@ -1,11 +1,12 @@
-import PropertyGrid from "@/components/PropertyGrid";
-import React from "react";
+"use client";
+import { useParams } from "next/navigation";
 
 function DashboardPropertyPreviewPage() {
+  const { propertyId } = useParams();
   return (
     <div>
-      DashboardPropertyPreviewPage
-      <PropertyGrid />
+      <h1>DashboardPropertyPreviewPage</h1>
+      <p>{propertyId}</p>
     </div>
   );
 }

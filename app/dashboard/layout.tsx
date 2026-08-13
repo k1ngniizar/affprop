@@ -23,7 +23,7 @@ export default async function DashboardLayout({
       <div className="flex flex-col flex-1 relative p-3 bg-zinc-900 max-w-7xl border border-zinc-700 rounded-sm">
         <DashboardNavbar user={session.user} />
 
-        <main className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-zinc-600">
+        <main className="flex-1 overflow-y-auto px-2 scrollbar-thin scrollbar-thumb-zinc-600">
           {children}
         </main>
       </div>
