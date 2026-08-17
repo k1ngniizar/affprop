@@ -4,7 +4,12 @@ import { revalidatePath } from "next/cache";
 
 import { auth } from "@/auth";
 
-import { createProperty, deleteProperty, updateProperty } from "@/services";
+import {
+  createProperty,
+  deleteProperty,
+  getPropertyById,
+  updateProperty,
+} from "@/services";
 
 import {
   createPropertySchema,
@@ -72,4 +77,20 @@ export async function deletePropertyAction(propertyId: string) {
   revalidatePath("/dashboard/properties");
 
   revalidatePath("/properties");
+}
+
+export async function getPropertyAction(propertyId: string) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("unauthorized.");
+  }
+
+  const data = await getPropertyById(propertyId);
+  console.log(data);
+  // const data = await res.json();
+  return {
+    success: true,
+    data,
+  };
 }

@@ -1,3 +1,5 @@
+import { CreatePropertyInput } from "@/validations";
+
 export const dummyProperties = [
   {
     id: "1",

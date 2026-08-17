@@ -1,15 +1,37 @@
 "use client";
+import { getPropertyAction } from "@/actions/property.actions";
 import { dummyProperty } from "@/constants/dummy";
+import { PropertySchema } from "@/models/property.model";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import EditPropertyForm from "@/components/forms/editPropertyForm";
+
+interface editPropertyProps extends PropertySchema {
+  _id: string;
+}
 
 function EditPropertyPage() {
   const { propertyId } = useParams();
-  const [editProperties, setEditProperties] = useState(dummyProperty);
+  const [property, setProperty] = useState<editPropertyProps | null>(null);
+
+  useEffect(() => {
+    async function getProperty() {
+      const data = await getPropertyAction("6a762bf88fcc01de2ffaa770");
+      console.log(data);
+      setProperty(data.data);
+    }
+
+    getProperty();
+  }, []);
+
+  // const property = await getPropertyAction(propertyId);
+  // console.log(property);
   return (
     <div>
       <p>{propertyId}</p>
       <h1>EditPropertyPage</h1>
+      {!property && <p>Loading...</p>}
+      {property && <EditPropertyForm property={property} />}
     </div>
   );
 }
