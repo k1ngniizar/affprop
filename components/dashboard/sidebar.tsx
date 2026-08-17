@@ -27,11 +27,12 @@ export default function DashboardSidebar() {
           const isActive = pathname === navItem.href;
           return (
             <Link
-              className={`${isActive ? "bg-zinc-100 text-black hover:text-white font-bold" : ""} hover:bg-zinc-800 py-1 px-3 rounded-sm`}
+              className={`${isActive ? "bg-zinc-100 text-black hover:text-white font-bold" : ""} flex gap-1 items-center hover:bg-zinc-800 py-1 px-3 justify-center rounded-sm`}
               key={navItem.title}
               href={navItem.href}
             >
-              {navItem.title}
+              <div>{navItem.icon}</div>
+              <span className="hidden md:block">{navItem.title}</span>
             </Link>
           );
         })}

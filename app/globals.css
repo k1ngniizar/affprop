@@ -81,7 +81,6 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: oklch(0.145 0 0);
@@ -132,7 +131,9 @@ body {
   scrollbar-width: thin;
 }
 
-
+button {
+  cursor: pointer;
+}
 
 /* @import "tailwindcss";
 @import "tw-animate-css";
