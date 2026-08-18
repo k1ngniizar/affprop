@@ -78,11 +78,13 @@ export const PropertyCard = ({ item }) => {
             {item.location.city}, {item.location.state}, {item.location.country}
             .
           </p>
-          <div
-            onClick={() => router.push(`/dashboard/properties/${item.id}/edit`)}
-            className="flex gap-2"
-          >
-            <button className="bg-white text-black rounded-sm py-1 px-2 w-full hover:bg-zinc-300">
+          <div className="flex gap-2">
+            <button
+              onClick={() =>
+                router.push(`/dashboard/properties/${item.id}/edit`)
+              }
+              className="bg-white text-black rounded-sm py-1 px-2 w-full hover:bg-zinc-300"
+            >
               Edit
             </button>
             <button

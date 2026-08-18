@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EditPropertyForm from "@/components/forms/editPropertyForm";
 
-interface editPropertyProps extends PropertySchema {
+export interface editPropertyProps extends PropertySchema {
   _id: string;
 }
 

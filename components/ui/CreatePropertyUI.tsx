@@ -6,11 +6,13 @@ interface CreatePropertyUiProps {
   inputType?: string;
   label: string;
   title: keyof CreatePropertyInput;
-  control: UseFormRegister<CreatePropertyInput>;
-  errors: FieldError | undefined;
-  errorMsg: string | undefined;
-  imageFile?: File | undefined;
+  control?: UseFormRegister<CreatePropertyInput>;
+  handleChange?: () => void;
+  errors?: FieldError | string | undefined;
+  errorMsg?: string | undefined;
+  imageFile?: File | string | undefined;
   selectDropdn?: string[];
+  value?: string;
 }
 
 export function Textarea({
@@ -19,18 +21,32 @@ export function Textarea({
   control,
   errors,
   errorMsg,
+  handleChange,
 }: CreatePropertyUiProps) {
+  const newControl = () => {};
   return (
     <div>
       <label className=" text-sm font-bold" htmlFor={title}>
         {label}
       </label>
-      <textarea
-        id={title}
-        {...control(title)}
-        placeholder="Enter property description"
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
-      />
+      {control && (
+        <textarea
+          id={title}
+          required
+          {...control(title)}
+          placeholder={`Enter ${label} description`}
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
+      {handleChange && (
+        <textarea
+          id={title}
+          required
+          onChange={handleChange}
+          placeholder="Enter property description"
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
     </div>
@@ -41,6 +57,7 @@ export function Input({
   inputType = "text",
   title,
   control,
+  handleChange,
   errors,
   errorMsg,
   label,
@@ -51,15 +68,28 @@ export function Input({
       <label className=" text-sm font-bold" htmlFor={title}>
         {label}
       </label>
-      <input
-        type={inputType}
-        id={title}
-        {...control(title, {
-          valueAsNumber: isInputTypeNumber,
-        })}
-        placeholder={`Enter property ${title}`}
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
-      />
+      {control && (
+        <input
+          type={inputType}
+          required
+          id={title}
+          {...control(title, {
+            valueAsNumber: isInputTypeNumber,
+          })}
+          placeholder={`Enter property ${title}`}
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
+      {handleChange && (
+        <input
+          type={inputType}
+          required
+          id={title}
+          onChange={handleChange}
+          placeholder={`Enter property ${title}`}
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
     </div>
@@ -68,6 +98,7 @@ export function Input({
 export function FileInput({
   title,
   control,
+  handleChange,
   errors,
   errorMsg,
   label,
@@ -78,17 +109,30 @@ export function FileInput({
       <label className=" text-sm font-bold" htmlFor={title}>
         {label}
       </label>
-      <input
-        type="file"
-        accept="image/*"
-        disabled
-        id={title}
-        {...control(title, {
-          setValueAs: (value = imageFile) => value,
-        })}
-        placeholder={`Enter property ${title}`}
-        className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
-      />
+      {control && (
+        <input
+          type="file"
+          accept="image/*"
+          disabled
+          id={title}
+          {...control(title, {
+            setValueAs: (value = imageFile) => value,
+          })}
+          placeholder={`Enter property ${title}`}
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
+      {handleChange && (
+        <input
+          type="file"
+          accept="image/*"
+          disabled
+          id={title}
+          onChange={handleChange}
+          placeholder={`Enter property ${title}`}
+          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+        />
+      )}
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
     </div>
@@ -98,6 +142,7 @@ export function FileInput({
 export function SelectInput({
   title,
   control,
+  handleChange,
   errors,
   errorMsg,
   label,
@@ -109,31 +154,62 @@ export function SelectInput({
         {label}
       </label>
       {selectDropdn && (
-        <select
-          defaultValue={""}
-          className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
-          {...control(title)}
-          id={title}
-        >
-          <option
-            className="text-foreground bg-background hover:bg-accent"
-            value=""
-            disabled
-          >
-            Select {label}
-          </option>
-          {selectDropdn.map((items, idx) => {
-            return (
+        <>
+          {control && (
+            <select
+              defaultValue={""}
+              className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
+              {...control(title)}
+              id={title}
+            >
               <option
                 className="text-foreground bg-background hover:bg-accent"
-                key={idx}
-                value={items}
+                value=""
+                disabled
               >
-                {items}
+                Select {label}
               </option>
-            );
-          })}
-        </select>
+              {selectDropdn.map((items, idx) => {
+                return (
+                  <option
+                    className="text-foreground bg-background hover:bg-accent"
+                    key={idx}
+                    value={items}
+                  >
+                    {items}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+          {handleChange && (
+            <select
+              defaultValue={""}
+              className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
+              onChange={handleChange}
+              id={title}
+            >
+              <option
+                className="text-foreground bg-background hover:bg-accent"
+                value=""
+                disabled
+              >
+                Select {label}
+              </option>
+              {selectDropdn.map((items, idx) => {
+                return (
+                  <option
+                    className="text-foreground bg-background hover:bg-accent"
+                    key={idx}
+                    value={items}
+                  >
+                    {items}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+        </>
       )}
 
       {errors && <p className="text-red-400">{errorMsg}</p>}
