@@ -87,10 +87,16 @@ export async function getPropertyAction(propertyId: string) {
   }
 
   const data = await getPropertyById(propertyId);
-  console.log(data);
+  console.log("Data check:: ", data);
+
+  // if (!data) return;
   // const data = await res.json();
   return {
     success: true,
-    data,
+    data: {
+      ...data,
+      _id: data._id.toString(),
+      owner: data.owner.toString(),
+    },
   };
 }

@@ -51,14 +51,14 @@ export const PropertyCard = ({ item }) => {
             </a>
           </div>
         </div>
-        <div className="flex-1 p-4 flex flex-col justify-center gap-4">
-          <div className="flex justify-between items-center text-left ">
-            <div className="flex-1 text-left ">
-              <h2 className="text-lg font-bold text-nowrap truncate w-40">
+        <div className="flex-1 p-2 py-4 flex flex-col justify-center gap-2 lg:gap-4">
+          <div className=" text-left relative">
+            <div className="text-left">
+              <h2 className="text-lg font-bold text-nowrap truncate w-full">
                 {item.title}
               </h2>
               <div className="flex gap-2 items-center">
-                <p className="text-sm px-2 font-bold text-zinc-400">
+                <p className="text-sm px-2 font-bold text-zinc-400 text-nowrap">
                   {item.propertyType}
                 </p>
                 <p className="text-xs font-bold text-green-400 w-fit  rounded-sm">
@@ -66,7 +66,7 @@ export const PropertyCard = ({ item }) => {
                 </p>
               </div>
             </div>
-            <p className="text-[14px] leading-[100%] tracking-0 font-bold  h-fit text-nowrap flex-1 text-right ">
+            <p className="text-[14px] absolute -top-10 -right-1 bg-green-900 rounded-full px-2 py-1 leading-[100%] tracking-0 font-bold  h-fit text-nowrap flex-1 text-right ">
               {wholeToFrac(item.price)}{" "}
               <span className="text-[12px] leading-[100%] tracking-0   text-green-400  font-bold">
                 NGN

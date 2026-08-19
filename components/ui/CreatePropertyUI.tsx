@@ -1,5 +1,5 @@
 import { CreatePropertyInput } from "@/validations";
-import React from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 interface CreatePropertyUiProps {
@@ -7,12 +7,15 @@ interface CreatePropertyUiProps {
   label: string;
   title: keyof CreatePropertyInput;
   control?: UseFormRegister<CreatePropertyInput>;
-  handleChange?: () => void;
+  handleChange?:
+    | ((e: ChangeEvent<HTMLInputElement>) => void)
+    | ((e: ChangeEvent<HTMLSelectElement>) => void)
+    | ((e: ChangeEvent<HTMLTextAreaElement>) => void);
   errors?: FieldError | string | undefined;
   errorMsg?: string | undefined;
   imageFile?: File | string | undefined;
   selectDropdn?: string[];
-  value?: string;
+  value?: string | number;
 }
 
 export function Textarea({
@@ -21,13 +24,13 @@ export function Textarea({
   control,
   errors,
   errorMsg,
+  value,
   handleChange,
 }: CreatePropertyUiProps) {
-  const newControl = () => {};
   return (
     <div>
       <label className=" text-sm font-bold" htmlFor={title}>
-        {label}
+        {label} {title}
       </label>
       {control && (
         <textarea
@@ -40,9 +43,11 @@ export function Textarea({
       )}
       {handleChange && (
         <textarea
+          name={title}
+          value={value}
           id={title}
           required
-          onChange={handleChange}
+          onChange={handleChange as ChangeEventHandler<HTMLTextAreaElement>}
           placeholder="Enter property description"
           className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
         />
@@ -61,12 +66,13 @@ export function Input({
   errors,
   errorMsg,
   label,
+  value,
 }: CreatePropertyUiProps) {
   const isInputTypeNumber = inputType === "number";
   return (
     <div>
       <label className=" text-sm font-bold" htmlFor={title}>
-        {label}
+        {label} {title}
       </label>
       {control && (
         <input
@@ -82,10 +88,12 @@ export function Input({
       )}
       {handleChange && (
         <input
+          name={title}
+          value={isInputTypeNumber ? Number(value) : value}
           type={inputType}
           required
           id={title}
-          onChange={handleChange}
+          onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
           placeholder={`Enter property ${title}`}
           className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
         />
@@ -128,7 +136,7 @@ export function FileInput({
           accept="image/*"
           disabled
           id={title}
-          onChange={handleChange}
+          onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
           placeholder={`Enter property ${title}`}
           className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
         />
@@ -147,11 +155,12 @@ export function SelectInput({
   errorMsg,
   label,
   selectDropdn,
+  value,
 }: CreatePropertyUiProps) {
   return (
     <div className="flex flex-col flex-1">
       <label className=" text-sm font-bold" htmlFor={title}>
-        {label}
+        {label} {title}
       </label>
       {selectDropdn && (
         <>
@@ -184,9 +193,10 @@ export function SelectInput({
           )}
           {handleChange && (
             <select
-              defaultValue={""}
+              value={value}
+              name={title}
               className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
-              onChange={handleChange}
+              onChange={handleChange as ChangeEventHandler<HTMLSelectElement>}
               id={title}
             >
               <option
