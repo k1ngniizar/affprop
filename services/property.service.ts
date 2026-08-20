@@ -5,7 +5,7 @@ import type { CreatePropertyInput, UpdatePropertyInput } from "@/validations";
 export async function getProperties() {
   await connectDB();
 
-  return PropertyModel.find();
+  return PropertyModel.find().lean();
 }
 
 export async function getPropertyById(id: string) {
@@ -59,11 +59,12 @@ export async function createProperty(
 export async function updateProperty(
   propertyId: string,
   userId: string,
-  data: UpdatePropertyInput,
+  data: Partial<PropertySchema>,
 ) {
   await connectDB();
 
   const property = await PropertyModel.findById(propertyId);
+  console.log("Check property in UPDATE PROPERTY::", property);
 
   if (!property) {
     throw new Error("Property not found.");

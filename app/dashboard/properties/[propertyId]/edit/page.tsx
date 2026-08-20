@@ -16,7 +16,7 @@ function EditPropertyPage() {
 
   useEffect(() => {
     async function getProperty() {
-      const data = await getPropertyAction("6a762bf88fcc01de2ffaa770");
+      const data = await getPropertyAction(propertyId as string);
       console.log(data);
       setProperty(data.data);
     }

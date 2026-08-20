@@ -89,7 +89,7 @@ export function Input({
       {handleChange && (
         <input
           name={title}
-          value={isInputTypeNumber ? Number(value) : value}
+          value={value}
           type={inputType}
           required
           id={title}

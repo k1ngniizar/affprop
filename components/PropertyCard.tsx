@@ -74,14 +74,14 @@ export const PropertyCard = ({ item }) => {
             </p>
           </div>
 
-          <p className="text-sm text-wrap font-bold text-zinc-400 px-2">
+          <p className="text-xs text-wrap font-bold text-zinc-400 px-2">
             {item.location.city}, {item.location.state}, {item.location.country}
             .
           </p>
           <div className="flex gap-2">
             <button
               onClick={() =>
-                router.push(`/dashboard/properties/${item.id}/edit`)
+                router.push(`/dashboard/properties/${item._id}/edit`)
               }
               className="bg-white text-black rounded-sm py-1 px-2 w-full hover:bg-zinc-300"
             >

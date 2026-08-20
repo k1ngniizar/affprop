@@ -18,6 +18,7 @@ import {
   type UpdatePropertyInput,
 } from "@/validations";
 import z from "zod";
+import { PropertySchema } from "@/models/property.model";
 
 export async function createPropertyAction(
   input: CreatePropertyInput,
@@ -49,7 +50,7 @@ export async function createPropertyAction(
 
 export async function updatePropertyAction(
   propertyId: string,
-  input: UpdatePropertyInput,
+  input: Partial<PropertySchema>,
 ) {
   const session = await auth();
 
@@ -57,9 +58,9 @@ export async function updatePropertyAction(
     throw new Error("Unauthorized.");
   }
 
-  const data = updatePropertySchema.parse(input);
+  // const data = updatePropertySchema.parse(input);
 
-  await updateProperty(propertyId, session.user.id, data);
+  await updateProperty(propertyId, session.user.id, input);
 
   revalidatePath("/dashboard/properties");
   revalidatePath(`/properties/${propertyId}`);
@@ -96,7 +97,7 @@ export async function getPropertyAction(propertyId: string) {
     data: {
       ...data,
       _id: data._id.toString(),
-      owner: data.owner.toString(),
+      owner: data.owner._id.toString(),
     },
   };
 }

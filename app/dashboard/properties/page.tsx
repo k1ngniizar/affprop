@@ -3,8 +3,9 @@ import { dummyProperties } from "@/constants/dummy";
 import { getProperties } from "@/services";
 
 async function DashboardPropertyPage() {
-  const property = dummyProperties;
-  console.log(property[0]);
+  // const property = dummyProperties;
+  const property = await getProperties();
+  console.log("Check CALL ERROR:: ", property);
   return (
     <div>
       DashboardPropertyPage

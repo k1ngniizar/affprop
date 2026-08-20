@@ -1,20 +1,32 @@
+"use client";
 import { editPropertyProps } from "@/app/dashboard/properties/[propertyId]/edit/page";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Input, Textarea, SelectInput } from "../ui/CreatePropertyUI";
 import { LISTING_TYPE_VALUES, PROPERTY_TYPE_VALUES } from "@/constants";
 import { LucideCheck } from "lucide-react";
+import { uploadImage } from "@/lib/cloudinary";
+import toast from "react-hot-toast";
+import { updatePropertyAction } from "@/actions/property.actions";
+import { useRouter } from "next/navigation";
+import { PropertySchema } from "@/models/property.model";
 
 interface editPropertyDetailsProps {
   property: editPropertyProps;
 }
 
 function EditPropertyForm({ property }: editPropertyDetailsProps) {
+  const router = useRouter();
   const [editPropertyDetails, setEditPropertyDetails] = useState(property);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(
     editPropertyDetails.images?.url,
   );
   console.log("Edit property details:: ", editPropertyDetails);
+
+  const checkImage = !!image;
+  const checkDetailsChange = property !== editPropertyDetails;
+  const checkForChange = checkDetailsChange || checkImage;
+
   useEffect(() => {
     if (!image) return;
 
@@ -58,12 +70,82 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
     }
     setEditPropertyDetails((prev) => ({ ...prev, [name]: value }));
   };
-  // const handleTextareaChange = (e: ) => {};
-  // const handleSelectChange = (e: ) => {};
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!checkForChange) {
+      toast.error("No changes detected!");
+      return;
+    }
+
+    if (!!image) {
+      const uploadedImageData = await uploadImage(image);
+      if (uploadedImageData.error) {
+        toast.error(uploadedImageData.message);
+        return;
+      }
+
+      const uploadedImage = {
+        publicId: uploadedImageData.publicId,
+        url: uploadedImageData.url,
+      };
+
+      // console.log("Check image upload:: ", uploadedImage);
+
+      const updatedDetails: Partial<PropertySchema> = {
+        title: editPropertyDetails.title,
+        description: editPropertyDetails.description,
+        price: Number(editPropertyDetails.price),
+        propertyType: editPropertyDetails.propertyType,
+        listingType: editPropertyDetails.listingType,
+        bedrooms: Number(editPropertyDetails.bedrooms),
+        bathrooms: Number(editPropertyDetails.bathrooms),
+        parking: Number(editPropertyDetails.parking),
+        area: Number(editPropertyDetails.area),
+        images: uploadedImage,
+        location: {
+          address: editPropertyDetails.location?.address,
+          city: editPropertyDetails.location?.city,
+          state: editPropertyDetails.location?.state,
+          country: editPropertyDetails.location?.country,
+          latitude: Number(editPropertyDetails.location?.latitude),
+          longitude: Number(editPropertyDetails.location?.longitude),
+        },
+      };
+
+      // console.log("Check updated detaials image present:: ", updatedDetails);
+
+      await updatePropertyAction(editPropertyDetails._id, updatedDetails);
+    } else {
+      const updatedDetails: Partial<PropertySchema> = {
+        title: editPropertyDetails.title,
+        description: editPropertyDetails.description,
+        price: Number(editPropertyDetails.price),
+        propertyType: editPropertyDetails.propertyType,
+        listingType: editPropertyDetails.listingType,
+        bedrooms: Number(editPropertyDetails.bedrooms),
+        bathrooms: Number(editPropertyDetails.bathrooms),
+        parking: Number(editPropertyDetails.parking),
+        area: Number(editPropertyDetails.area),
+        images: editPropertyDetails.images,
+        location: {
+          address: editPropertyDetails.location?.address,
+          city: editPropertyDetails.location?.city,
+          state: editPropertyDetails.location?.state,
+          country: editPropertyDetails.location?.country,
+          latitude: Number(editPropertyDetails.location?.latitude),
+          longitude: Number(editPropertyDetails.location?.longitude),
+        },
+      };
+      // console.log("Check updated detaials:: ", updatedDetails);
+      await updatePropertyAction(editPropertyDetails._id, updatedDetails);
+    }
+
+    toast.success("Updated successfully");
+
     console.log("submitted");
+    router.push("/dashboard/properties");
   };
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
