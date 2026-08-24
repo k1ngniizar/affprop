@@ -24,7 +24,35 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
   console.log("Edit property details:: ", editPropertyDetails);
 
   const checkImage = !!image;
-  const checkDetailsChange = property !== editPropertyDetails;
+
+  const getComparableDetails = (details: editPropertyProps) => ({
+    title: details.title ?? "",
+    description: details.description ?? "",
+    price: Number(details.price) || 0,
+    propertyType: details.propertyType ?? "",
+    listingType: details.listingType ?? "",
+    bedrooms: Number(details.bedrooms) || 0,
+    bathrooms: Number(details.bathrooms) || 0,
+    parking: Number(details.parking) || 0,
+    area: Number(details.area) || 0,
+    images: {
+      publicId: details.images?.publicId ?? "",
+      url: details.images?.url ?? "",
+    },
+    location: {
+      address: details.location?.address ?? "",
+      city: details.location?.city ?? "",
+      state: details.location?.state ?? "",
+      country: details.location?.country ?? "",
+      latitude: Number(details.location?.latitude) || 0,
+      longitude: Number(details.location?.longitude) || 0,
+    },
+  });
+
+  const checkDetailsChange =
+    JSON.stringify(getComparableDetails(property)) !==
+    JSON.stringify(getComparableDetails(editPropertyDetails));
+
   const checkForChange = checkDetailsChange || checkImage;
 
   useEffect(() => {
@@ -52,13 +80,14 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
     const { value, name } = e.currentTarget;
     console.log(value);
     console.log(name);
-    const checkName =
-      name === "address" ||
-      "city" ||
-      "state" ||
-      "country" ||
-      "latitude" ||
-      "longitude";
+    const checkName = [
+      "address",
+      "city",
+      "state",
+      "country",
+      "latitude",
+      "longitude",
+    ].includes(name);
     if (checkName) {
       setEditPropertyDetails((prev) => ({
         ...prev,
@@ -67,6 +96,7 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
           [name]: value,
         },
       }));
+      return;
     }
     setEditPropertyDetails((prev) => ({ ...prev, [name]: value }));
   };
@@ -114,9 +144,9 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
         },
       };
 
-      // console.log("Check updated detaials image present:: ", updatedDetails);
+      console.log("Check updated detaials image present:: ", updatedDetails);
 
-      await updatePropertyAction(editPropertyDetails._id, updatedDetails);
+      // await updatePropertyAction(editPropertyDetails._id, updatedDetails);
     } else {
       const updatedDetails: Partial<PropertySchema> = {
         title: editPropertyDetails.title,
@@ -138,8 +168,8 @@ function EditPropertyForm({ property }: editPropertyDetailsProps) {
           longitude: Number(editPropertyDetails.location?.longitude),
         },
       };
-      // console.log("Check updated detaials:: ", updatedDetails);
-      await updatePropertyAction(editPropertyDetails._id, updatedDetails);
+      console.log("Check updated detaials:: ", updatedDetails);
+      // await updatePropertyAction(editPropertyDetails._id, updatedDetails);
     }
 
     toast.success("Updated successfully");
