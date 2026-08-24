@@ -1,4 +1,5 @@
 "use client";
+import { deletePropertyAction } from "@/actions/property.actions";
 import { wholeToFrac } from "@/lib/wholeToFrac";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -6,32 +7,47 @@ import { useState } from "react";
 export const PropertyCard = ({ item }) => {
   const router = useRouter();
   const [openDelModal, setOpenDelModal] = useState(false);
+  const [propertyToDelete, setPropertyToDelete] = useState("");
   return (
     <>
       {openDelModal && (
-        <div className="fixed right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 border border-red-600 h-45 w-md rounded-sm z-50 p-2 bg-red-50 text-red-600 font-bold">
-          <div className="flex justify-between items-center p-2">
-            <h1 className="text-2xl">Delete Property</h1>
+        <div className="fixed right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 border border-red-600  w-md rounded-sm z-50 p-5 bg-black  font-bold">
+          <div className="flex justify-between items-center pb-2">
+            <h1 className="text-2xl text-red-600">Danger Zone</h1>
             <p
-              className="p-2 hover:scale-125  cursor-pointer"
-              onClick={() => setOpenDelModal(false)}
+              className="p-2 text-red-600 hover:scale-125  cursor-pointer"
+              onClick={() => {
+                setPropertyToDelete("");
+                setOpenDelModal(false);
+              }}
             >
               X
             </p>
           </div>
-          <div className="p-2">
-            <p>Are you sure you want to delete the listing?</p>
-            <div className="py-2 flex gap-2">
-              <button className="border border-red-600 p-2 rounded-sm">
-                Delete
-              </button>
-              <button
-                onClick={() => setOpenDelModal(false)}
-                className="bg-white text-black p-2 rounded-sm"
-              >
-                Cancel
-              </button>
-            </div>
+          <div className="py-5 px-3">
+            <p className="text-lg">
+              Are you sure you want to delete the listing?
+            </p>
+          </div>
+          <div className="pt-2 flex gap-2">
+            <button
+              onClick={() => {
+                console.log(propertyToDelete);
+                deletePropertyAction(propertyToDelete);
+              }}
+              className="border min-w-20 hover:scale-110 border-red-600 text-red-600 p-2 rounded-sm"
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => {
+                setPropertyToDelete("");
+                setOpenDelModal(false);
+              }}
+              className="bg-white min-w-20 hover:scale-110 text-black p-2 rounded-sm"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}
@@ -88,7 +104,10 @@ export const PropertyCard = ({ item }) => {
               Edit
             </button>
             <button
-              onClick={() => setOpenDelModal(true)}
+              onClick={() => {
+                setOpenDelModal(true);
+                setPropertyToDelete(item._id);
+              }}
               className="border border-red-400 text-red-400 hover:bg-red-900/50 rounded-sm py-1 px-2 w-full "
             >
               Delete
