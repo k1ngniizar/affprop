@@ -10,7 +10,6 @@ import {
   TrendingUp,
   ShieldCheck,
   Users,
-  DollarSign,
   MapPin,
   Bed,
   Bath,
@@ -21,6 +20,7 @@ import {
   Zap,
   Award,
   Lock,
+  Banknote,
 } from "lucide-react";
 
 export default async function Home() {
@@ -137,8 +137,8 @@ export default async function Home() {
 
           <p className="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto font-normal leading-relaxed">
             The modern real estate marketplace connecting sellers, buyers, and
-            affiliate partners. Share verified listings and earn high commissions
-            on every closing.
+            affiliate partners. Share verified listings and earn high
+            commissions on every closing.
           </p>
 
           {/* Quick Search Widget */}
@@ -206,7 +206,7 @@ export default async function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-1">
               <div className="flex items-center justify-center gap-1.5 text-green-400 mb-1">
-                <DollarSign className="w-5 h-5" />
+                <Banknote className="w-5 h-5" />
                 <span className="text-3xl sm:text-4xl font-extrabold text-white">
                   ₦500M+
                 </span>
@@ -267,7 +267,8 @@ export default async function Home() {
               Featured Properties
             </h2>
             <p className="text-zinc-400 mt-2 text-sm sm:text-base">
-              Explore high-demand residential and commercial properties available for sale and rent.
+              Explore high-demand residential and commercial properties
+              available for sale and rent.
             </p>
           </div>
           <Link
@@ -361,14 +362,18 @@ export default async function Home() {
       </section>
 
       {/* Why Choose AffProp Section */}
-      <section id="features" className="py-20 bg-zinc-950 border-t border-zinc-800">
+      <section
+        id="features"
+        className="py-20 bg-zinc-950 border-t border-zinc-800"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Built for Sellers, Buyers & Affiliates
             </h2>
             <p className="mt-4 text-zinc-400 text-sm sm:text-base">
-              AffProp combines real estate management with an automated affiliate referral network so everyone wins.
+              AffProp combines real estate management with an automated
+              affiliate referral network so everyone wins.
             </p>
           </div>
 
@@ -377,9 +382,12 @@ export default async function Home() {
               <div className="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400">
                 <Zap className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-white">Automated Referral Tracking</h3>
+              <h3 className="text-xl font-bold text-white">
+                Automated Referral Tracking
+              </h3>
               <p className="text-sm text-zinc-400 leading-relaxed">
-                Generate custom affiliate links for properties instantly. Track clicks, lead submissions, and total conversions in real time.
+                Generate custom affiliate links for properties instantly. Track
+                clicks, lead submissions, and total conversions in real time.
               </p>
             </div>
 
@@ -387,9 +395,12 @@ export default async function Home() {
               <div className="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400">
                 <Award className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-white">Verified Property Listings</h3>
+              <h3 className="text-xl font-bold text-white">
+                Verified Property Listings
+              </h3>
               <p className="text-sm text-zinc-400 leading-relaxed">
-                Every property listed on AffProp undergoes rigorous verification to guarantee authentic data, pricing, and owner identity.
+                Every property listed on AffProp undergoes rigorous verification
+                to guarantee authentic data, pricing, and owner identity.
               </p>
             </div>
 
@@ -397,9 +408,13 @@ export default async function Home() {
               <div className="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400">
                 <Lock className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-white">Transparent Commission Payouts</h3>
+              <h3 className="text-xl font-bold text-white">
+                Transparent Commission Payouts
+              </h3>
               <p className="text-sm text-zinc-400 leading-relaxed">
-                Never worry about delayed commissions. Automated payout workflows ensure affiliates receive rewards directly upon deal closure.
+                Never worry about delayed commissions. Automated payout
+                workflows ensure affiliates receive rewards directly upon deal
+                closure.
               </p>
             </div>
           </div>
@@ -407,13 +422,17 @@ export default async function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        id="how-it-works"
+        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             How AffProp Works
           </h2>
           <p className="mt-4 text-zinc-400 text-sm sm:text-base">
-            Get started in three simple steps whether you want to list properties or earn commissions.
+            Get started in three simple steps whether you want to list
+            properties or earn commissions.
           </p>
         </div>
 
@@ -422,9 +441,12 @@ export default async function Home() {
             <div className="w-12 h-12 rounded-full bg-green-500 text-black font-extrabold text-lg flex items-center justify-center mx-auto shadow-lg shadow-green-500/20">
               1
             </div>
-            <h3 className="text-lg font-bold text-white">Create Your Account</h3>
+            <h3 className="text-lg font-bold text-white">
+              Create Your Account
+            </h3>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              Sign up as a seller, buyer, or affiliate in under 2 minutes with secure credentials.
+              Sign up as a seller, buyer, or affiliate in under 2 minutes with
+              secure credentials.
             </p>
           </div>
 
@@ -432,9 +454,12 @@ export default async function Home() {
             <div className="w-12 h-12 rounded-full bg-green-500 text-black font-extrabold text-lg flex items-center justify-center mx-auto shadow-lg shadow-green-500/20">
               2
             </div>
-            <h3 className="text-lg font-bold text-white">List or Share Properties</h3>
+            <h3 className="text-lg font-bold text-white">
+              List or Share Properties
+            </h3>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              Property owners publish listings; affiliates grab unique referral links for social media & marketing.
+              Property owners publish listings; affiliates grab unique referral
+              links for social media & marketing.
             </p>
           </div>
 
@@ -442,23 +467,30 @@ export default async function Home() {
             <div className="w-12 h-12 rounded-full bg-green-500 text-black font-extrabold text-lg flex items-center justify-center mx-auto shadow-lg shadow-green-500/20">
               3
             </div>
-            <h3 className="text-lg font-bold text-white">Earn & Manage Profits</h3>
+            <h3 className="text-lg font-bold text-white">
+              Earn & Manage Profits
+            </h3>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              Close deals, track property views and commissions live from your personalized dashboard.
+              Close deals, track property views and commissions live from your
+              personalized dashboard.
             </p>
           </div>
         </div>
       </section>
 
       {/* Call To Action Banner */}
-      <section id="affiliate" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        id="affiliate"
+        className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="relative rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-green-500/30 p-8 sm:p-14 overflow-hidden text-center shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 blur-[100px] rounded-full pointer-events-none" />
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight relative z-10 max-w-3xl mx-auto">
             Ready to Transform Your Real Estate Business?
           </h2>
           <p className="mt-4 text-zinc-400 text-sm sm:text-lg max-w-xl mx-auto relative z-10">
-            Join thousands of property managers and affiliates earning higher returns with AffProp.
+            Join thousands of property managers and affiliates earning higher
+            returns with AffProp.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4 relative z-10">
@@ -490,30 +522,45 @@ export default async function Home() {
               <span className="text-xl font-bold text-white">AffProp</span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Empowering property owners and affiliate marketers through a unified, transparent real estate platform.
+              Empowering property owners and affiliate marketers through a
+              unified, transparent real estate platform.
             </p>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Quick Links</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm">
+              Quick Links
+            </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/properties" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties"
+                  className="hover:text-green-400 transition-colors"
+                >
                   All Properties
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/dashboard"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/login"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Sign In
                 </Link>
               </li>
               <li>
-                <Link href="/register" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/register"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Register
                 </Link>
               </li>
@@ -521,25 +568,39 @@ export default async function Home() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Property Types</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm">
+              Property Types
+            </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/properties?type=Duplex" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Duplex"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Luxury Duplexes
                 </Link>
               </li>
               <li>
-                <Link href="/properties?type=Apartment" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Apartment"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Modern Apartments
                 </Link>
               </li>
               <li>
-                <Link href="/properties?type=Office+Space" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Office+Space"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Commercial Offices
                 </Link>
               </li>
               <li>
-                <Link href="/properties?type=Land" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Land"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Lands & Plots
                 </Link>
               </li>
@@ -568,13 +629,18 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-zinc-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <p>© {new Date().getFullYear()} AffProp. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-zinc-300">Privacy Policy</a>
-            <a href="#" className="hover:text-zinc-300">Terms of Service</a>
-            <a href="#" className="hover:text-zinc-300">Support</a>
+            <a href="#" className="hover:text-zinc-300">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-zinc-300">
+              Terms of Service
+            </a>
+            <a href="#" className="hover:text-zinc-300">
+              Support
+            </a>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
