@@ -1,15 +1,18 @@
+import { getAllPropertiesAction } from "@/actions/property.actions";
 import PropertyGrid from "@/components/PropertyGrid";
 import { dummyProperties } from "@/constants/dummy";
-import { getProperties } from "@/services";
+import { PropertySchema } from "@/models/property.model";
+// import { getProperties } from "@/services";
 
 async function DashboardPropertyPage() {
   // const property = dummyProperties;
-  const property = await getProperties();
-  console.log("Check CALL ERROR:: ", property);
+  const data = await getAllPropertiesAction();
+  console.log("Check CALL ERROR:: ", data);
+  const property: Partial<PropertySchema[]> = data.data;
   return (
     <div>
       DashboardPropertyPage
-      <p>{property[0].id}</p>
+      <p>{property[0]?.location?.city}</p>
       <PropertyGrid property={property} />
     </div>
   );

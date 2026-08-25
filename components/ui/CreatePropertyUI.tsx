@@ -35,7 +35,6 @@ export function Textarea({
       {control && (
         <textarea
           id={title}
-          required
           {...control(title)}
           placeholder={`Enter ${label} description`}
           className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
@@ -76,8 +75,7 @@ export function Input({
       </label>
       {control && (
         <input
-          type={inputType}
-          required
+          // type={inputType}
           id={title}
           {...control(title, {
             valueAsNumber: isInputTypeNumber,
@@ -193,6 +191,7 @@ export function SelectInput({
           )}
           {handleChange && (
             <select
+              required
               value={value}
               name={title}
               className="border-accent border-2 p-3 rounded-sm w-full max-w-md"

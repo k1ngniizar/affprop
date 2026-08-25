@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import {
   createProperty,
   deleteProperty,
+  getProperties,
   getPropertyById,
   updateProperty,
 } from "@/services";
@@ -46,6 +47,9 @@ export async function createPropertyAction(
 
   revalidatePath("/dashboard/properties");
   revalidatePath("/properties");
+  return {
+    success: true,
+  };
 }
 
 export async function updatePropertyAction(
@@ -99,5 +103,27 @@ export async function getPropertyAction(propertyId: string) {
       _id: data._id.toString(),
       owner: data.owner._id.toString(),
     },
+  };
+}
+
+export async function getAllPropertiesAction() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("unauthorized.");
+  }
+
+  const data = await getProperties();
+  console.log("Data check:: ", data);
+
+  // if (!data) return;
+  // const data = await res.json();
+  return {
+    success: true,
+    data: data.map((property) => ({
+      ...property,
+      _id: property._id.toString(),
+      owner: property.owner._id.toString(),
+    })),
   };
 }
