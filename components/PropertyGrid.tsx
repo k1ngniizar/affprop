@@ -1,13 +1,13 @@
 import { PropertyCard } from "./PropertyCard";
 
-function PropertyGrid({ property }) {
+function PropertyGrid({ property }: { property: any[] }) {
   return (
     <div className="relative">
       <h1 className="text-2xl bg-zinc-700/70 backdrop-blur-xs py-2 sticky top-0 px-4 my-4 z-10">
         Properties You Listed
       </h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4 overflow-hidden max-w-7xl mx-auto">
-        {property.map((item) => {
+        {property.map((item: any) => {
           return <PropertyCard key={item._id} item={item} />;
         })}
       </div>

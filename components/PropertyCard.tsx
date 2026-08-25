@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export const PropertyCard = ({ item }) => {
+export const PropertyCard = ({ item }: { item: any }) => {
   const router = useRouter();
   const [openDelModal, setOpenDelModal] = useState(false);
   const [propertyToDelete, setPropertyToDelete] = useState("");
