@@ -21,8 +21,8 @@ export async function deleteUser(id: string) {
 
 export async function updateUserDetails(id: string, data: any) {
   await connectDB();
-  const updatedDetails = await User.findByIdAndUpdate(id, data).select(
-    "-password",
-  );
+  const updatedDetails = await User.findByIdAndUpdate(id, data, {
+    new: true,
+  }).select("-password");
   return updatedDetails;
 }

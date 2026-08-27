@@ -18,25 +18,71 @@ import {
   CheckCircle2,
   Banknote,
 } from "lucide-react";
+import { getAllPropertiesByCreatorIdAction } from "@/actions/property.actions";
 
 export default async function DashboardPage() {
   const session = await auth();
   const userName =
     session?.user?.name || session?.user?.email?.split("@")[0] || "Partner";
 
-  let properties: any[] = [];
+  let properties: any[] | null = [];
   try {
-    const dbProps = await getProperties();
-    if (dbProps && dbProps.length > 0) {
-      properties = dbProps.map((p: any) => ({
+    const dbProps = await getAllPropertiesByCreatorIdAction();
+    if (dbProps?.data && dbProps.data.length > 0) {
+      properties = dbProps.data.map((p: any) => ({
         ...p,
         _id: p._id ? p._id.toString() : p.id,
       }));
     } else {
-      properties = dummyProperties;
+      properties = [];
     }
   } catch (error) {
-    properties = dummyProperties;
+    console.log("Error in dashboard:: ", error);
+    properties = null;
+  }
+
+  if (properties === null) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
+        <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-4 opacity-50">
+          <Building2 className="w-8 h-8 text-zinc-500" />
+        </div>
+        <h2 className="text-xl font-bold text-white">Something went wrong.</h2>
+        <p className="text-sm text-zinc-400 mt-2 max-w-md">
+          Please check your internet connection, refresh the page, or try again
+          later. Thank you!
+        </p>
+        <Link
+          href="/dashboard/properties/new"
+          className="mt-6 px-5 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-xs transition-all shadow-lg shadow-green-500/20 flex items-center gap-2"
+        >
+          <PlusCircle className="w-4 h-4" />
+          List Your First Property
+        </Link>
+      </div>
+    );
+  }
+
+  if (properties.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
+        <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-4 opacity-50">
+          <Building2 className="w-8 h-8 text-zinc-500" />
+        </div>
+        <h2 className="text-xl font-bold text-white">No Properties Yet</h2>
+        <p className="text-sm text-zinc-400 mt-2 max-w-md">
+          Start by listing your first property to activate your dashboard
+          analytics and referral tracking.
+        </p>
+        <Link
+          href="/dashboard/properties/new"
+          className="mt-6 px-5 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-xs transition-all shadow-lg shadow-green-500/20 flex items-center gap-2"
+        >
+          <PlusCircle className="w-4 h-4" />
+          List Your First Property
+        </Link>
+      </div>
+    );
   }
 
   // Calculate statistics
