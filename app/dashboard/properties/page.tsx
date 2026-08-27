@@ -1,4 +1,7 @@
-import { getAllPropertiesAction } from "@/actions/property.actions";
+import {
+  getAllPropertiesAction,
+  getAllPropertiesByCreatorIdAction,
+} from "@/actions/property.actions";
 import PropertyGrid from "@/components/PropertyGrid";
 import { dummyProperties } from "@/constants/dummy";
 import Link from "next/link";
@@ -8,7 +11,7 @@ async function DashboardPropertyPage() {
   let propertyList: any[] = [];
   try {
     console.log("Bankai");
-    const res = await getAllPropertiesAction();
+    const res = await getAllPropertiesByCreatorIdAction();
     console.log("Check response:: ", res);
     if (res?.data && res.data.length > 0) {
       propertyList = res.data;

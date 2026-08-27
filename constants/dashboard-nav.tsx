@@ -12,8 +12,8 @@ export const dashboardNav = [
     icon: <LucideHouse />,
   },
   {
-    title: "Profile",
-    href: "/dashboard/profile",
+    title: "Users",
+    href: "/dashboard/users",
     icon: <LucideUser />,
   },
 ];

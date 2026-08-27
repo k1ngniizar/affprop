@@ -1,12 +1,26 @@
 "use client";
 import { logoutAction } from "@/actions/auth.actions";
 import { dashboardNav } from "@/constants/dashboard-nav";
-import { Building2, PlusCircle, LogOut, ExternalLink, Sparkles } from "lucide-react";
+import {
+  Building2,
+  PlusCircle,
+  LogOut,
+  ExternalLink,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function DashboardSidebar() {
+type Props = {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    role?: string | null;
+  };
+};
+
+export default function DashboardSidebar({ user }: Props) {
   const pathname = usePathname();
 
   const signOutFn = async () => {
@@ -48,17 +62,21 @@ export default function DashboardSidebar() {
           </p>
           {dashboardNav.map((navItem) => {
             const isActive = pathname === navItem.href;
+            const displayUsersLink =
+              user?.role !== "ADMIN" && navItem.title === "Users";
             return (
               <Link
                 key={navItem.title}
                 href={navItem.href}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${displayUsersLink ? "hidden" : ""} ${
                   isActive
                     ? "bg-green-500/10 text-green-400 border border-green-500/30 shadow-sm"
                     : "text-zinc-400 hover:text-white hover:bg-zinc-900"
                 }`}
               >
-                <div className={`${isActive ? "text-green-400" : "text-zinc-400"}`}>
+                <div
+                  className={`${isActive ? "text-green-400" : "text-zinc-400"}`}
+                >
                   {navItem.icon}
                 </div>
                 <span>{navItem.title}</span>
@@ -74,7 +92,8 @@ export default function DashboardSidebar() {
             <span>Grow Your Portfolio</span>
           </div>
           <p className="text-xs text-zinc-400 mb-3 leading-relaxed">
-            Publish new listings to start tracking affiliate referrals and inquiries.
+            Publish new listings to start tracking affiliate referrals and
+            inquiries.
           </p>
           <Link
             href="/dashboard/properties/new"
@@ -99,4 +118,3 @@ export default function DashboardSidebar() {
     </aside>
   );
 }
-

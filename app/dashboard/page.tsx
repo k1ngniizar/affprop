@@ -7,7 +7,6 @@ import {
   Building2,
   TrendingUp,
   Eye,
-  DollarSign,
   Share2,
   PlusCircle,
   ArrowRight,
@@ -17,6 +16,7 @@ import {
   Bath,
   Maximize2,
   CheckCircle2,
+  Banknote,
 } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 p-6 sm:p-8 overflow-hidden shadow-2xl">
+      <div className="relative rounded-3xl bg-linear-to-r from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 p-6 sm:p-8 overflow-hidden shadow-2xl">
         <div className="absolute top-0 right-0 w-80 h-80 bg-green-500/10 blur-[100px] rounded-full pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -140,7 +140,7 @@ export default async function DashboardPage() {
               Portfolio Value
             </span>
             <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-              <DollarSign className="w-5 h-5" />
+              <Banknote className="w-5 h-5" />
             </div>
           </div>
           <div className="space-y-1">
@@ -244,7 +244,7 @@ export default async function DashboardPage() {
                 key={propId}
                 className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col shadow-xl"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                <div className="relative aspect-16/10 overflow-hidden bg-zinc-950">
                   <img
                     src={imageUrl}
                     alt={item.title}

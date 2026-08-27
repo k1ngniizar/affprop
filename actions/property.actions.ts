@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import {
   createProperty,
   deleteProperty,
+  getAllPropertiesByCreatorId,
   getProperties,
   getPropertyById,
   updateProperty,
@@ -114,6 +115,28 @@ export async function getAllPropertiesAction() {
   }
 
   const data = await getProperties();
+  console.log("Data check:: ", data);
+
+  // if (!data) return;
+  // const data = await res.json();
+  return {
+    success: true,
+    data: data.map((property) => ({
+      ...property,
+      _id: property._id.toString(),
+      owner: property.owner._id.toString(),
+    })),
+  };
+}
+
+export async function getAllPropertiesByCreatorIdAction() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("unauthorized.");
+  }
+
+  const data = await getAllPropertiesByCreatorId(session.user.id);
   console.log("Data check:: ", data);
 
   // if (!data) return;
