@@ -1,3 +1,12 @@
-export default function ProfilePage() {
-  return <div>Profile Page</div>;
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+
+export default async function ProfilePage() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+
+  redirect(`/profile/${session.user.id}`);
 }

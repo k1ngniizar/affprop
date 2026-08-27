@@ -1,4 +1,4 @@
-import { LucideChartBar, LucideHouse, LucideUser } from "lucide-react";
+import { LucideChartBar, LucideHouse, LucideUser, LucideUserCheck } from "lucide-react";
 
 export const dashboardNav = [
   {
@@ -10,6 +10,11 @@ export const dashboardNav = [
     title: "My Properties",
     href: "/dashboard/properties",
     icon: <LucideHouse />,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    icon: <LucideUserCheck />,
   },
   {
     title: "Users",
