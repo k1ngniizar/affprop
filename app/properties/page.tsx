@@ -11,9 +11,14 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
+import { PROPERTY_TYPE_VALUES } from "@/constants/property";
 
 export default async function PropertyPage(props: {
-  searchParams?: Promise<{ search?: string; type?: string; listingType?: string }>;
+  searchParams?: Promise<{
+    search?: string;
+    type?: string;
+    listingType?: string;
+  }>;
 }) {
   const session = await auth();
   const searchParams = await props.searchParams;
@@ -38,7 +43,9 @@ export default async function PropertyPage(props: {
   const filteredProperties = allProperties.filter((item: any) => {
     const titleMatch = item.title?.toLowerCase().includes(searchQuery);
     const cityMatch = item.location?.city?.toLowerCase().includes(searchQuery);
-    const stateMatch = item.location?.state?.toLowerCase().includes(searchQuery);
+    const stateMatch = item.location?.state
+      ?.toLowerCase()
+      .includes(searchQuery);
     const matchesSearch = !searchQuery || titleMatch || cityMatch || stateMatch;
 
     const matchesType = !selectedType || item.propertyType === selectedType;
@@ -66,10 +73,16 @@ export default async function PropertyPage(props: {
             <Link href="/properties" className="text-green-400 font-semibold">
               Explore Properties
             </Link>
-            <Link href="/#features" className="hover:text-green-400 transition-colors">
+            <Link
+              href="/#features"
+              className="hover:text-green-400 transition-colors"
+            >
               Why AffProp
             </Link>
-            <Link href="/#how-it-works" className="hover:text-green-400 transition-colors">
+            <Link
+              href="/#how-it-works"
+              className="hover:text-green-400 transition-colors"
+            >
               How It Works
             </Link>
           </nav>
@@ -118,13 +131,18 @@ export default async function PropertyPage(props: {
               Explore Available Properties
             </h1>
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              Find luxury duplexes, modern apartments, commercial offices, and prime land plots available for sale and rent.
+              Find luxury duplexes, modern apartments, commercial offices, and
+              prime land plots available for sale and rent.
             </p>
           </div>
 
           {/* Filter Bar */}
           <div className="mt-8 relative z-10 p-3 rounded-2xl bg-zinc-950/90 border border-zinc-800 backdrop-blur-xl">
-            <form action="/properties" method="GET" className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <form
+              action="/properties"
+              method="GET"
+              className="grid grid-cols-1 sm:grid-cols-4 gap-3"
+            >
               <div className="relative col-span-1 sm:col-span-2">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
                 <input
@@ -142,12 +160,11 @@ export default async function PropertyPage(props: {
                 className="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2.5 text-sm text-zinc-300 focus:outline-none focus:border-green-500/50 transition-all cursor-pointer"
               >
                 <option value="">All Types</option>
-                <option value="Duplex">Duplex</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Bungalow">Bungalow</option>
-                <option value="Terrace">Terrace</option>
-                <option value="Land">Land</option>
-                <option value="Office Space">Office Space</option>
+                {PROPERTY_TYPE_VALUES.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
               </select>
 
               <button
@@ -164,7 +181,11 @@ export default async function PropertyPage(props: {
         {/* Results Header */}
         <div className="flex items-center justify-between pt-4">
           <p className="text-sm text-zinc-400 font-medium">
-            Showing <span className="text-white font-bold">{filteredProperties.length}</span> properties
+            Showing{" "}
+            <span className="text-white font-bold">
+              {filteredProperties.length}
+            </span>{" "}
+            properties
           </p>
           {(searchQuery || selectedType || selectedListingType) && (
             <Link
@@ -191,25 +212,37 @@ export default async function PropertyPage(props: {
               <span className="text-xl font-bold text-white">AffProp</span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Empowering property owners and affiliate marketers through a unified, transparent real estate platform.
+              Empowering property owners and affiliate marketers through a
+              unified, transparent real estate platform.
             </p>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Quick Links</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm">
+              Quick Links
+            </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/properties" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties"
+                  className="hover:text-green-400 transition-colors"
+                >
                   All Properties
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/dashboard"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/login"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Sign In
                 </Link>
               </li>
@@ -217,20 +250,31 @@ export default async function PropertyPage(props: {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Property Types</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm">
+              Property Types
+            </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/properties?type=Duplex" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Duplex"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Luxury Duplexes
                 </Link>
               </li>
               <li>
-                <Link href="/properties?type=Apartment" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Apartment"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Modern Apartments
                 </Link>
               </li>
               <li>
-                <Link href="/properties?type=Office+Space" className="hover:text-green-400 transition-colors">
+                <Link
+                  href="/properties?type=Office+Space"
+                  className="hover:text-green-400 transition-colors"
+                >
                   Commercial Offices
                 </Link>
               </li>
@@ -259,4 +303,3 @@ export default async function PropertyPage(props: {
     </div>
   );
 }
-

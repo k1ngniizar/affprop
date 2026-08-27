@@ -86,11 +86,11 @@ export async function deletePropertyAction(propertyId: string) {
 }
 
 export async function getPropertyAction(propertyId: string) {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("unauthorized.");
-  }
+  // if (!session?.user?.id) {
+  //   throw new Error("unauthorized.");
+  // }
 
   const data = await getPropertyById(propertyId);
   console.log("Data check:: ", data);
@@ -108,11 +108,11 @@ export async function getPropertyAction(propertyId: string) {
 }
 
 export async function getAllPropertiesAction() {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("unauthorized.");
-  }
+  // if (!session?.user?.id) {
+  //   throw new Error("unauthorized.");
+  // }
 
   const data = await getProperties();
   console.log("Data check:: ", data);
