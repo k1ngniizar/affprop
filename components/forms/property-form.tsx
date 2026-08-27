@@ -58,7 +58,8 @@ function PropertyForm() {
       };
       console.log("Uploaded image:: ", uploadedImage);
 
-      await createPropertyAction(data, uploadedImage);
+      const result = await createPropertyAction(data, uploadedImage);
+      console.log(result);
       toast.success("Property listing success.");
       router.push("/dashboard/properties");
     } catch (error) {
