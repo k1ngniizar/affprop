@@ -7,6 +7,7 @@ import DashboardSidebar from "@/components/dashboard/sidebar";
 import DashboardNavbar from "@/components/dashboard/navbar";
 import Link from "next/link";
 import { UserX } from "lucide-react";
+import Header from "@/components/Header";
 
 type Props = {
   params: Promise<{
@@ -27,9 +28,12 @@ export default async function UserProfilePage({ params }: Props) {
         <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-4 text-zinc-500">
           <UserX className="w-8 h-8" />
         </div>
-        <h1 className="text-2xl font-bold text-white">User Profile Not Found</h1>
+        <h1 className="text-2xl font-bold text-white">
+          User Profile Not Found
+        </h1>
         <p className="text-sm text-zinc-400 mt-2 max-w-md">
-          The user profile you are looking for does not exist or has been removed.
+          The user profile you are looking for does not exist or has been
+          removed.
         </p>
         <Link
           href="/dashboard"
@@ -72,7 +76,8 @@ export default async function UserProfilePage({ params }: Props) {
 
   // Public standalone fallback view
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans p-4 sm:p-8">
+    <div className="min-h-screen space-y-10 bg-zinc-950 text-white font-sans p-4 sm:p-8">
+      <Header session={session} />
       <ProfileView
         user={user}
         properties={properties}

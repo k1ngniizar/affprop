@@ -12,10 +12,6 @@ import {
   ArrowRight,
   Sparkles,
   MapPin,
-  Bed,
-  Bath,
-  Maximize2,
-  CheckCircle2,
   Banknote,
 } from "lucide-react";
 import { getAllPropertiesByCreatorIdAction } from "@/actions/property.actions";
@@ -34,11 +30,11 @@ export default async function DashboardPage() {
         _id: p._id ? p._id.toString() : p.id,
       }));
     } else {
-      properties = [];
+      properties = dummyProperties;
     }
   } catch (error) {
     console.log("Error in dashboard:: ", error);
-    properties = null;
+    properties = dummyProperties;
   }
 
   if (properties === null) {
@@ -52,13 +48,6 @@ export default async function DashboardPage() {
           Please check your internet connection, refresh the page, or try again
           later. Thank you!
         </p>
-        <Link
-          href="/dashboard/properties/new"
-          className="mt-6 px-5 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-xs transition-all shadow-lg shadow-green-500/20 flex items-center gap-2"
-        >
-          <PlusCircle className="w-4 h-4" />
-          List Your First Property
-        </Link>
       </div>
     );
   }
@@ -221,7 +210,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Affiliate Link Share Widget */}
-      <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
+      {/* <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -257,7 +246,7 @@ export default async function DashboardPage() {
             Copy Link
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Recent Property Listings Section */}
       <div className="space-y-4">

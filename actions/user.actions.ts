@@ -10,8 +10,8 @@ import {
 
 export const getUserByIdAction = async (id: string) => {
   try {
-    const session = await auth();
-    if (!session?.user?.id) throw new Error("Unauthorized");
+    // const session = await auth();
+    // if (!session?.user?.id) throw new Error("Unauthorized");
 
     const user = await getUserById(id);
     if (!user) return { success: false, error: "User not found" };

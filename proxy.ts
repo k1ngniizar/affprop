@@ -26,7 +26,7 @@ export const proxy = auth((req) => {
 });
 
 export const config = {
-  matcher: ["/login", "/register", "/dashboard/:path*", "/profile/:path*"],
+  matcher: ["/login", "/register", "/dashboard/:path*", "/profile"],
 };
 
 // export { auth as proxy } from "@/auth";

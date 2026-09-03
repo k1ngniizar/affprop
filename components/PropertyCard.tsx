@@ -100,9 +100,9 @@ export const PropertyCard = ({
       )}
 
       {/* Property Card */}
-      <div className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col shadow-xl">
+      <div className="group bg-black/20 hover:scale-105 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col shadow-xl">
         {/* Image Container */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+        <div className="relative aspect-8/10 overflow-hidden bg-zinc-950 rounded-b-xl group-hover:border-b-5 border-green-400/50">
           <img
             src={imageUrl}
             alt={item.title}
@@ -126,7 +126,7 @@ export const PropertyCard = ({
           {isPublic && (
             <Link
               href={`/properties/${propId}`}
-              className="absolute top-3 right-3 p-2 rounded-full bg-black/70 backdrop-blur-md text-zinc-300 hover:text-white hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute top-3 right-3 p-2 rounded-full bg-black/70 backdrop-blur-md text-green-400 hover:text-green-700 hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
               title="View Public Details"
             >
               <Eye className="w-4 h-4" />
@@ -135,7 +135,7 @@ export const PropertyCard = ({
         </div>
 
         {/* Content Details */}
-        <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+        <div className="p-2 flex-1 flex flex-col justify-between space-y-2">
           <div>
             <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors line-clamp-1">
               {item.title}
@@ -151,15 +151,15 @@ export const PropertyCard = ({
 
           {/* Specs */}
           <div className="grid grid-cols-3 gap-2 py-2 border-y border-zinc-800/80 text-xs text-zinc-400">
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1.5">
               <Bed className="w-4 h-4 text-green-400" />
               <span>{item.bedrooms || 0} Beds</span>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1.5">
               <Bath className="w-4 h-4 text-green-400" />
               <span>{item.bathrooms || 0} Baths</span>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1.5">
               <Maximize2 className="w-4 h-4 text-green-400" />
               <span>{item.area || 0} sqft</span>
             </div>

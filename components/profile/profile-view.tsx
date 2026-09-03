@@ -388,7 +388,7 @@ export default function ProfileView({
         </div>
 
         {properties.length > 0 ? (
-          <PropertyGrid property={properties} isPublic={true} />
+          <PropertyGrid property={properties} isPublic={false} />
         ) : (
           <div className="p-8 rounded-3xl bg-zinc-900 border border-zinc-800 text-center space-y-3">
             <div className="w-12 h-12 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-600 mx-auto">
