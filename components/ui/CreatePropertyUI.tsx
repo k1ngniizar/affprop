@@ -29,15 +29,15 @@ export function Textarea({
 }: CreatePropertyUiProps) {
   return (
     <div>
-      <label className=" text-sm font-bold" htmlFor={title}>
-        {label} {title}
+      <label className=" text-sm font-bold text-green-400" htmlFor={title}>
+        {label}
       </label>
       {control && (
         <textarea
           id={title}
           {...control(title)}
           placeholder={`Enter ${label} description`}
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
       {handleChange && (
@@ -48,7 +48,7 @@ export function Textarea({
           required
           onChange={handleChange as ChangeEventHandler<HTMLTextAreaElement>}
           placeholder="Enter property description"
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
 
@@ -70,8 +70,8 @@ export function Input({
   const isInputTypeNumber = inputType === "number";
   return (
     <div>
-      <label className=" text-sm font-bold" htmlFor={title}>
-        {label} {title}
+      <label className=" text-sm font-bold text-green-400" htmlFor={title}>
+        {label}
       </label>
       {control && (
         <input
@@ -81,7 +81,7 @@ export function Input({
             valueAsNumber: isInputTypeNumber,
           })}
           placeholder={`Enter property ${title}`}
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
       {handleChange && (
@@ -93,7 +93,7 @@ export function Input({
           id={title}
           onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
           placeholder={`Enter property ${title}`}
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
 
@@ -112,7 +112,7 @@ export function FileInput({
 }: CreatePropertyUiProps) {
   return (
     <div>
-      <label className=" text-sm font-bold" htmlFor={title}>
+      <label className=" text-sm font-bold text-green-400" htmlFor={title}>
         {label}
       </label>
       {control && (
@@ -125,7 +125,7 @@ export function FileInput({
             setValueAs: (value = imageFile) => value,
           })}
           placeholder={`Enter property ${title}`}
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
       {handleChange && (
@@ -136,7 +136,7 @@ export function FileInput({
           id={title}
           onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
           placeholder={`Enter property ${title}`}
-          className="w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-sm p-3"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
         />
       )}
 
@@ -157,20 +157,20 @@ export function SelectInput({
 }: CreatePropertyUiProps) {
   return (
     <div className="flex flex-col flex-1">
-      <label className=" text-sm font-bold" htmlFor={title}>
-        {label} {title}
+      <label className=" text-sm font-bold text-green-400" htmlFor={title}>
+        {label}
       </label>
       {selectDropdn && (
         <>
           {control && (
             <select
               defaultValue={""}
-              className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
               {...control(title)}
               id={title}
             >
               <option
-                className="text-foreground bg-background hover:bg-accent"
+                className="text-foreground bg-green-500/10"
                 value=""
                 disabled
               >
@@ -179,7 +179,7 @@ export function SelectInput({
               {selectDropdn.map((items, idx) => {
                 return (
                   <option
-                    className="text-foreground bg-background hover:bg-accent"
+                    className="text-foreground bg-green-500/10 rounded-sm"
                     key={idx}
                     value={items}
                   >
@@ -194,12 +194,12 @@ export function SelectInput({
               required
               value={value}
               name={title}
-              className="border-accent border-2 p-3 rounded-sm w-full max-w-md"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
               onChange={handleChange as ChangeEventHandler<HTMLSelectElement>}
               id={title}
             >
               <option
-                className="text-foreground bg-background hover:bg-accent"
+                className="text-foreground bg-green-500/10"
                 value=""
                 disabled
               >
@@ -208,7 +208,7 @@ export function SelectInput({
               {selectDropdn.map((items, idx) => {
                 return (
                   <option
-                    className="text-foreground bg-background hover:bg-accent"
+                    className="text-foreground bg-green-500/10"
                     key={idx}
                     value={items}
                   >

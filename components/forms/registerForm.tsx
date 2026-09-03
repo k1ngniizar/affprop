@@ -16,8 +16,10 @@ import {
 import { useState } from "react";
 import { registerAction } from "@/actions/auth.actions";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
@@ -37,13 +39,16 @@ export default function RegisterForm() {
         return;
       }
 
-      toast.success("Account created successfully! Redirecting to login...");
+      toast.success("Account created successfully!");
+      toast.success("Redirecting to dashboard...");
+      //
       setTimeout(() => {
-        window.location.href = "/login";
+        router.push("/dashboard");
       }, 1000);
     } catch (error) {
       const isError =
         error instanceof Error ? error.message : "Something went wrong";
+      console.log("Error in register form:: ", isError);
       toast.error(isError);
     }
   }
@@ -92,7 +97,9 @@ export default function RegisterForm() {
             </li>
             <li className="flex items-center gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
-              <span>Publish unlimited property listings with photo gallery</span>
+              <span>
+                Publish unlimited property listings with photo gallery
+              </span>
             </li>
             <li className="flex items-center gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
@@ -110,7 +117,7 @@ export default function RegisterForm() {
       <div className="w-full md:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center space-y-5">
         <div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Create Account ✨
+            Create Account
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-1">
             Sign up as a property owner, buyer, or affiliate partner.
@@ -121,7 +128,10 @@ export default function RegisterForm() {
           {/* Name Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label htmlFor="firstName" className="text-xs font-semibold text-zinc-300">
+              <label
+                htmlFor="firstName"
+                className="text-xs font-semibold text-zinc-300"
+              >
                 First Name
               </label>
               <input
@@ -138,7 +148,10 @@ export default function RegisterForm() {
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="lastName" className="text-xs font-semibold text-zinc-300">
+              <label
+                htmlFor="lastName"
+                className="text-xs font-semibold text-zinc-300"
+              >
                 Last Name
               </label>
               <input
@@ -157,7 +170,10 @@ export default function RegisterForm() {
 
           {/* Email */}
           <div className="space-y-1">
-            <label htmlFor="email" className="text-xs font-semibold text-zinc-300">
+            <label
+              htmlFor="email"
+              className="text-xs font-semibold text-zinc-300"
+            >
               Email Address
             </label>
             <input
@@ -168,13 +184,38 @@ export default function RegisterForm() {
               className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
             />
             {errors.email && (
-              <p className="text-[11px] text-red-400 font-medium">{errors.email.message}</p>
+              <p className="text-[11px] text-red-400 font-medium">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          {/* Phone number */}
+          <div className="space-y-1">
+            <label
+              htmlFor="phoneNumber"
+              className="text-xs font-semibold text-zinc-300"
+            >
+              Phone Number
+            </label>
+            <input
+              id="phoneNumber"
+              {...register("phoneNumber")}
+              placeholder="Enter your phone number"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
+            />
+            {errors.phoneNumber && (
+              <p className="text-[11px] text-red-400 font-medium">
+                {errors.phoneNumber.message}
+              </p>
             )}
           </div>
 
           {/* Password */}
           <div className="space-y-1">
-            <label htmlFor="password" className="text-xs font-semibold text-zinc-300">
+            <label
+              htmlFor="password"
+              className="text-xs font-semibold text-zinc-300"
+            >
               Password
             </label>
             <div className="relative">
@@ -198,13 +239,18 @@ export default function RegisterForm() {
               </button>
             </div>
             {errors.password && (
-              <p className="text-[11px] text-red-400 font-medium">{errors.password.message}</p>
+              <p className="text-[11px] text-red-400 font-medium">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
           {/* Confirm Password */}
           <div className="space-y-1">
-            <label htmlFor="confirmPassword" className="text-xs font-semibold text-zinc-300">
+            <label
+              htmlFor="confirmPassword"
+              className="text-xs font-semibold text-zinc-300"
+            >
               Confirm Password
             </label>
             <div className="relative">
@@ -247,7 +293,7 @@ export default function RegisterForm() {
               </div>
             ) : (
               <>
-                <span>Create Partner Account</span>
+                <span>Create Account</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
@@ -268,4 +314,3 @@ export default function RegisterForm() {
     </div>
   );
 }
-

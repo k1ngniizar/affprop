@@ -202,7 +202,7 @@ export default function PropertyDetailsPage({
                 className="w-full py-2.5 px-3 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-green-400 font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Calendar className="w-3.5 h-3.5" />
-                Copy Referral Link
+                Create Inspection Schedule
               </button>
             </div>
           </div>

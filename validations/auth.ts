@@ -8,6 +8,8 @@ export const registerSchema = z
 
     email: z.email(),
 
+    phoneNumber: z.string().trim(),
+
     password: z
       .string()
       .min(8)

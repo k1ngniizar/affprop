@@ -30,8 +30,9 @@ export default async function DashboardPage() {
         _id: p._id ? p._id.toString() : p.id,
       }));
     } else {
-      properties = dummyProperties;
+      properties = [];
     }
+    console.log("Properties in else block:: ", properties);
   } catch (error) {
     console.log("Error in dashboard:: ", error);
     properties = dummyProperties;
@@ -84,7 +85,7 @@ export default async function DashboardPage() {
   const estimatedCommission = totalPortfolioValue * 0.05; // 5% average commission rate
 
   const recentListings = properties.slice(0, 3);
-
+  console.log("recent listing:: ", recentListings);
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
