@@ -21,6 +21,7 @@ export async function register(data: RegisterInput) {
     lastName: data.lastName,
     email: data.email,
     password: hashedPassword,
+    phoneNumber: data.phoneNumber,
   });
 
   return {
@@ -29,6 +30,7 @@ export async function register(data: RegisterInput) {
     lastName: user.lastName,
     email: user.email,
     role: user.role,
+    phoneNumber: user.phoneNumber,
   };
 }
 

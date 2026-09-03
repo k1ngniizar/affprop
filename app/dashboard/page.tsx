@@ -12,31 +12,67 @@ import {
   ArrowRight,
   Sparkles,
   MapPin,
-  Bed,
-  Bath,
-  Maximize2,
-  CheckCircle2,
   Banknote,
 } from "lucide-react";
+import { getAllPropertiesByCreatorIdAction } from "@/actions/property.actions";
 
 export default async function DashboardPage() {
   const session = await auth();
   const userName =
     session?.user?.name || session?.user?.email?.split("@")[0] || "Partner";
 
-  let properties: any[] = [];
+  let properties: any[] | null = [];
   try {
-    const dbProps = await getProperties();
-    if (dbProps && dbProps.length > 0) {
-      properties = dbProps.map((p: any) => ({
+    const dbProps = await getAllPropertiesByCreatorIdAction();
+    if (dbProps?.data && dbProps.data.length > 0) {
+      properties = dbProps.data.map((p: any) => ({
         ...p,
         _id: p._id ? p._id.toString() : p.id,
       }));
     } else {
-      properties = dummyProperties;
+      properties = [];
     }
+    console.log("Properties in else block:: ", properties);
   } catch (error) {
+    console.log("Error in dashboard:: ", error);
     properties = dummyProperties;
+  }
+
+  if (properties === null) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
+        <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-4 opacity-50">
+          <Building2 className="w-8 h-8 text-zinc-500" />
+        </div>
+        <h2 className="text-xl font-bold text-white">Something went wrong.</h2>
+        <p className="text-sm text-zinc-400 mt-2 max-w-md">
+          Please check your internet connection, refresh the page, or try again
+          later. Thank you!
+        </p>
+      </div>
+    );
+  }
+
+  if (properties.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
+        <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-4 opacity-50">
+          <Building2 className="w-8 h-8 text-zinc-500" />
+        </div>
+        <h2 className="text-xl font-bold text-white">No Properties Yet</h2>
+        <p className="text-sm text-zinc-400 mt-2 max-w-md">
+          Start by listing your first property to activate your dashboard
+          analytics and referral tracking.
+        </p>
+        <Link
+          href="/dashboard/properties/new"
+          className="mt-6 px-5 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-xs transition-all shadow-lg shadow-green-500/20 flex items-center gap-2"
+        >
+          <PlusCircle className="w-4 h-4" />
+          List Your First Property
+        </Link>
+      </div>
+    );
   }
 
   // Calculate statistics
@@ -49,7 +85,7 @@ export default async function DashboardPage() {
   const estimatedCommission = totalPortfolioValue * 0.05; // 5% average commission rate
 
   const recentListings = properties.slice(0, 3);
-
+  console.log("recent listing:: ", recentListings);
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
@@ -175,7 +211,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Affiliate Link Share Widget */}
-      <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
+      {/* <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -211,7 +247,7 @@ export default async function DashboardPage() {
             Copy Link
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Recent Property Listings Section */}
       <div className="space-y-4">

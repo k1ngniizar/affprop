@@ -9,6 +9,7 @@ import { uploadImage } from "@/lib/cloudinary";
 import toast from "react-hot-toast";
 import { createPropertyAction } from "@/actions/property.actions";
 import { useRouter } from "next/navigation";
+import { Upload } from "lucide-react";
 
 function PropertyForm() {
   const router = useRouter();
@@ -206,23 +207,36 @@ function PropertyForm() {
 
       <div className="relative border border-zinc-700 bg-black rounded-sm p-4 space-y-4">
         <h2 className="text-2xl font-bold">Image upload</h2>
-        <div className="border border-zinc-700 max-w-lg mx-auto flex-col flex h-100 rounded-sm overflow-hidden">
+        <div className="border border-green-500/50 max-w-lg mx-auto flex-col flex h-100 rounded-sm overflow-hidden">
           <div className="flex-1 overflow-hidden flex items-center justify-center">
-            {!imagePreview && <p>Select an image to Preview</p>}
+            {!imagePreview && (
+              <p className="text-gray-400">Select an image to Preview</p>
+            )}
             {imagePreview && (
               <img src={imagePreview} className="w-full h-full" />
             )}
           </div>
           <div className="p-4">
-            <label className=" font-bold" htmlFor="image">
+            <label
+              className=" font-bold text-sm text-green-400"
+              htmlFor="image"
+            >
               Add image
             </label>
-            <input
-              id="image"
-              onChange={handleImageChange}
-              type="file"
-              className=" w-full border-zinc-700 border-2 outline-0 focus:border-zinc-400 rounded-lg p-3 object-cover"
-            />
+            <div className="flex gap-1 text-green-500/50 items-center">
+              <label
+                htmlFor="image"
+                className="bg-green-500/10 rounded-sm border p-3"
+              >
+                <Upload className="h-4 w-4 " />
+              </label>
+              <input
+                id="image"
+                onChange={handleImageChange}
+                type="file"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-sm px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
+              />
+            </div>
             {err && <p className="text-red-400">Please select an image.</p>}
           </div>
         </div>

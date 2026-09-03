@@ -15,6 +15,10 @@ import {
   Sparkles,
   ShieldCheck,
   Building2,
+  Heart,
+  HandCoins,
+  SearchCheck,
+  Calendar,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -58,7 +62,8 @@ export default function PropertyDetailsPage({
         </Link>
 
         <div className="text-xs text-zinc-500 font-medium">
-          <span>Properties</span> / <span className="text-zinc-300">{property.propertyType}</span> /{" "}
+          <span>Properties</span> /{" "}
+          <span className="text-zinc-300">{property.propertyType}</span> /{" "}
           <span className="text-green-400 font-semibold">{property.title}</span>
         </div>
       </div>
@@ -90,8 +95,8 @@ export default function PropertyDetailsPage({
         </div>
 
         {/* Right Column: Key Details & Actions */}
-        <div className="lg:col-span-5 space-y-6 flex flex-col justify-between">
-          <div className="space-y-4">
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="space-y-6">
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/30">
@@ -117,7 +122,9 @@ export default function PropertyDetailsPage({
             {/* Price Badge */}
             <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-baseline justify-between">
               <div>
-                <span className="text-xs text-zinc-400 font-medium block">Listing Price</span>
+                <span className="text-xs text-zinc-400 font-medium block">
+                  Listing Price
+                </span>
                 <span className="text-2xl sm:text-3xl font-black text-white">
                   ₦{property.price?.toLocaleString()}
                 </span>
@@ -131,22 +138,30 @@ export default function PropertyDetailsPage({
             <div className="grid grid-cols-4 gap-3 p-4 rounded-2xl bg-zinc-900 border border-zinc-800 text-center">
               <div className="space-y-1">
                 <Bed className="w-4 h-4 text-green-400 mx-auto" />
-                <span className="block text-sm font-bold text-white">{property.bedrooms ?? 0}</span>
+                <span className="block text-sm font-bold text-white">
+                  {property.bedrooms ?? 0}
+                </span>
                 <span className="text-[11px] text-zinc-500">Beds</span>
               </div>
               <div className="space-y-1">
                 <Bath className="w-4 h-4 text-green-400 mx-auto" />
-                <span className="block text-sm font-bold text-white">{property.bathrooms ?? 0}</span>
+                <span className="block text-sm font-bold text-white">
+                  {property.bathrooms ?? 0}
+                </span>
                 <span className="text-[11px] text-zinc-500">Baths</span>
               </div>
               <div className="space-y-1">
                 <Car className="w-4 h-4 text-green-400 mx-auto" />
-                <span className="block text-sm font-bold text-white">{property.parking ?? 0}</span>
+                <span className="block text-sm font-bold text-white">
+                  {property.parking ?? 0}
+                </span>
                 <span className="text-[11px] text-zinc-500">Parking</span>
               </div>
               <div className="space-y-1">
                 <Maximize2 className="w-4 h-4 text-green-400 mx-auto" />
-                <span className="block text-sm font-bold text-white">{property.area ?? 0}</span>
+                <span className="block text-sm font-bold text-white">
+                  {property.area ?? 0}
+                </span>
                 <span className="text-[11px] text-zinc-500">sqft</span>
               </div>
             </div>
@@ -154,29 +169,40 @@ export default function PropertyDetailsPage({
 
           {/* Action CTAs */}
           <div className="space-y-3 pt-2">
-            <button
-              onClick={() => toast.success("Contact request sent! Agent will reach out shortly.")}
-              className="w-full py-3.5 px-4 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 cursor-pointer"
-            >
-              <Phone className="w-4 h-4" />
-              Contact Listing Agent
-            </button>
-
+            <div className="flex gap-1">
+              <button
+                onClick={() =>
+                  toast.success(
+                    "Contact request sent! Agent will reach out shortly.",
+                  )
+                }
+                className="flex-2 py-3.5 px-4 rounded-xl bg-green-500 hover:bg-green-400 text-black font-bold text-sm transition-all flex items-center justify-center gap-2  cursor-pointer"
+              >
+                <HandCoins className="w-4 h-4" />
+                Initiate Property Transfer
+              </button>
+              <button
+                onClick={() => toast.success("Added to favorites.")}
+                className="flex-1 py-3.5 px-4 rounded-xl border-2 border-green-500 hover:bg-green-400/10 text-green-500 font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Heart className="w-4 h-4" />
+                Favorite
+              </button>
+            </div>
             {/* Affiliate Link Generator */}
             <div className="p-4 rounded-2xl bg-zinc-900/80 border border-green-500/20 space-y-2 text-left">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-white flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-green-400" />
-                  Earn 5% Commission
+                  Schedule Inspection
                 </span>
-                <span className="text-[11px] text-zinc-400">Affiliate Link</span>
+                <SearchCheck className="w-4 h-4 text-green-400" />
               </div>
               <button
                 onClick={copyAffiliateLink}
                 className="w-full py-2.5 px-3 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-green-400 font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Share2 className="w-3.5 h-3.5" />
-                Copy Referral Link
+                <Calendar className="w-3.5 h-3.5" />
+                Create Inspection Schedule
               </button>
             </div>
           </div>
@@ -185,7 +211,9 @@ export default function PropertyDetailsPage({
 
       {/* Description Section */}
       <section className="p-6 sm:p-8 rounded-3xl bg-zinc-900 border border-zinc-800 space-y-4">
-        <h2 className="text-xl font-bold text-white tracking-tight">Property Description</h2>
+        <h2 className="text-xl font-bold text-white tracking-tight">
+          Property Description
+        </h2>
         <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">
           {property.description || "No description provided for this listing."}
         </p>
@@ -193,4 +221,3 @@ export default function PropertyDetailsPage({
     </div>
   );
 }
-

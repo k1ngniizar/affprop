@@ -32,15 +32,22 @@ export default function DashboardNavbar({ user }: Props) {
         </Link>
 
         {/* User Pill */}
-        <div className="flex items-center gap-3 pl-3 border-l border-zinc-800">
-          <div className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-green-400 font-bold text-sm shadow-inner">
+        <Link
+          href="/profile"
+          className="flex items-center gap-3 pl-3 border-l border-zinc-800 group cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          <div className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 group-hover:border-green-500/50 flex items-center justify-center text-green-400 font-bold text-sm shadow-inner transition-colors">
             {displayName.charAt(0).toUpperCase()}
           </div>
           <div className="hidden md:block text-left leading-tight">
-            <p className="text-xs font-semibold text-white capitalize">{displayName}</p>
-            <p className="text-[11px] text-zinc-400 max-w-[150px] truncate">{user.email}</p>
+            <p className="text-xs font-semibold text-white group-hover:text-green-400 capitalize transition-colors">
+              {displayName}
+            </p>
+            <p className="text-[11px] text-zinc-400 max-w-[150px] truncate">
+              {user.email}
+            </p>
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );

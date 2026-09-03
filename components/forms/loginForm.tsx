@@ -17,8 +17,10 @@ import {
   ArrowRight,
   Lock,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -41,7 +43,10 @@ function LoginForm() {
         }
 
         toast.success("Welcome back!");
-        window.location.href = "/dashboard";
+        // window.location.href = "/dashboard";
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
       } catch (error: any) {
         toast.error(error.message || "Failed to sign in.");
       }
@@ -120,7 +125,10 @@ function LoginForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Email */}
           <div className="space-y-1.5">
-            <label htmlFor="email" className="text-xs font-semibold text-zinc-300">
+            <label
+              htmlFor="email"
+              className="text-xs font-semibold text-zinc-300"
+            >
               Email Address
             </label>
             <input
@@ -131,14 +139,19 @@ function LoginForm() {
               className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-green-500/50 transition-all"
             />
             {errors.email && (
-              <p className="text-xs text-red-400 font-medium">{errors.email.message}</p>
+              <p className="text-xs text-red-400 font-medium">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
           {/* Password */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="text-xs font-semibold text-zinc-300">
+              <label
+                htmlFor="password"
+                className="text-xs font-semibold text-zinc-300"
+              >
                 Password
               </label>
             </div>
@@ -205,4 +218,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-

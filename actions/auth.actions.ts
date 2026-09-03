@@ -11,7 +11,7 @@ export async function loginAction(data: LoginInput) {
     await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirectTo: "/dashboard",
+      redirect: false,
     });
 
     return { success: true, message: "Login successful." };
@@ -42,7 +42,7 @@ export async function registerAction(input: RegisterInput) {
   await signIn("credentials", {
     email: validated.data.email,
     password: validated.data.password,
-    redirectTo: "/dashboard",
+    redirect: false,
   });
 
   return {

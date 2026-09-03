@@ -86,11 +86,11 @@ export async function deletePropertyAction(propertyId: string) {
 }
 
 export async function getPropertyAction(propertyId: string) {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("unauthorized.");
-  }
+  // if (!session?.user?.id) {
+  //   throw new Error("unauthorized.");
+  // }
 
   const data = await getPropertyById(propertyId);
   console.log("Data check:: ", data);
@@ -108,11 +108,11 @@ export async function getPropertyAction(propertyId: string) {
 }
 
 export async function getAllPropertiesAction() {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("unauthorized.");
-  }
+  // if (!session?.user?.id) {
+  //   throw new Error("unauthorized.");
+  // }
 
   const data = await getProperties();
   console.log("Data check:: ", data);
@@ -139,8 +139,6 @@ export async function getAllPropertiesByCreatorIdAction() {
   const data = await getAllPropertiesByCreatorId(session.user.id);
   console.log("Data check:: ", data);
 
-  // if (!data) return;
-  // const data = await res.json();
   return {
     success: true,
     data: data.map((property) => ({
@@ -149,4 +147,21 @@ export async function getAllPropertiesByCreatorIdAction() {
       owner: property.owner._id.toString(),
     })),
   };
+}
+
+export async function getPropertiesByTargetUserIdAction(userId: string) {
+  try {
+    const data = await getAllPropertiesByCreatorId(userId);
+    return {
+      success: true,
+      data: data.map((property) => ({
+        ...property,
+        _id: property._id.toString(),
+        owner: property.owner._id.toString(),
+      })),
+    };
+  } catch (error: any) {
+    console.log("Error fetching target user properties:", error);
+    return { success: false, data: [] };
+  }
 }
