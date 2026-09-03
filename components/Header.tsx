@@ -1,6 +1,7 @@
 import { ArrowRight, Building2 } from "lucide-react";
 import { Session } from "next-auth";
 import Link from "next/link";
+import { signOutFn } from "./dashboard/sidebar";
 
 interface heroProp {
   session?: Session | null;
@@ -47,7 +48,7 @@ async function Header({ session }: heroProp) {
 
         <div className="flex items-center gap-4">
           {session?.user ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 border border-green-500/50 rounded-full px-2 py-1 backdrop-blur-xs">
               <Link href={`/profile`}>
                 <div className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 group-hover:border-green-500/50 flex items-center justify-center text-green-400 font-bold text-sm shadow-inner transition-colors">
                   {session.user.name.charAt(0)}
@@ -55,11 +56,17 @@ async function Header({ session }: heroProp) {
               </Link>
               <Link
                 href="/dashboard"
-                className="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-400 text-black font-bold text-sm transition-all shadow-md shadow-green-500/10 flex items-center gap-2"
+                className="px-2 py-2 rounded-lg text-white hover:text-green-400  font-bold text-sm transition-all  flex items-center"
               >
                 Dashboard
-                <ArrowRight className="w-4 h-4" />
               </Link>
+
+              <button
+                onClick={signOutFn}
+                className="px-2 py-2 text-zinc-300 hover:text-red-500 text-sm transition-all  flex items-center"
+              >
+                Sign out
+              </button>
             </div>
           ) : (
             <>

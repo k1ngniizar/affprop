@@ -20,17 +20,29 @@ type Props = {
   };
 };
 
+export const signOutFn = async () => {
+  const confirmSignOut = confirm("Are you sure you want to sign out?");
+
+  if (!confirmSignOut) return;
+  const result = await logoutAction();
+  if (!result.success) {
+    toast.error("Something went wrong.");
+    return;
+  }
+  toast.success("Logged out successfully.");
+};
+
 export default function DashboardSidebar({ user }: Props) {
   const pathname = usePathname();
 
-  const signOutFn = async () => {
-    const result = await logoutAction();
-    if (!result.success) {
-      toast.error("Something went wrong.");
-      return;
-    }
-    toast.success("Logged out successfully.");
-  };
+  // const signOutFn = async () => {
+  //   const result = await logoutAction();
+  //   if (!result.success) {
+  //     toast.error("Something went wrong.");
+  //     return;
+  //   }
+  //   toast.success("Logged out successfully.");
+  // };
 
   return (
     <aside className="w-full md:w-64 bg-zinc-950 border-r border-zinc-800/80 p-5 flex flex-col justify-between shrink-0 sticky top-0 md:h-screen z-40">
