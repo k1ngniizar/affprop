@@ -3,6 +3,12 @@ import { redirect } from "next/navigation";
 
 import DashboardSidebar from "@/components/dashboard/sidebar";
 import DashboardNavbar from "@/components/dashboard/navbar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Affprop user management dashboard.",
+};
 
 export default async function DashboardLayout({
   children,
